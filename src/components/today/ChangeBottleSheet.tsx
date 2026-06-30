@@ -1,5 +1,5 @@
 "use client";
-import { SILLAGE_WORD } from "@/lib/format";
+import { SILLAGE_WORD, nameParts } from "@/lib/format";
 import type { Perfume } from "@/lib/types";
 
 export function ChangeBottleSheet({
@@ -41,10 +41,20 @@ export function ChangeBottleSheet({
               className="flex w-full items-center justify-between rounded-lg px-3 py-3 text-left transition-colors hover:bg-sunken data-[active=true]:bg-brand-wash"
             >
               <div className="min-w-0">
-                <div className="truncate font-display text-[1.02rem] text-ink">{p.name}</div>
-                <div className="mt-0.5 truncate text-[0.74rem] text-ink-faint">
-                  {p.brandZh} · {p.styleTags[0]}
-                </div>
+                {(() => {
+                  const np = nameParts(p);
+                  return (
+                    <>
+                      <div className={`truncate text-[1.02rem] text-ink ${np.primaryIsZh ? "" : "font-display"}`}>
+                        {np.primary}
+                      </div>
+                      <div className="mt-0.5 truncate text-[0.74rem] text-ink-faint">
+                        {np.secondary ? `${np.secondary} · ` : ""}
+                        {p.brandZh} · {p.styleTags[0]}
+                      </div>
+                    </>
+                  );
+                })()}
               </div>
               <span className="ml-3 shrink-0 text-[0.72rem] text-ink-soft">
                 {SILLAGE_WORD[p.sillageTier]}

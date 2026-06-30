@@ -1,6 +1,6 @@
 "use client";
 import { Eyebrow } from "@/components/ui";
-import { SILLAGE_WORD } from "@/lib/format";
+import { SILLAGE_WORD, nameParts } from "@/lib/format";
 import type { ScoredPick } from "@/lib/types";
 
 export function AltList({
@@ -22,12 +22,20 @@ export function AltList({
             className="card flex items-center justify-between px-4 py-3 text-left transition-colors hover:border-line-strong"
           >
             <div className="min-w-0">
-              <div className="truncate font-display text-[1.02rem] text-ink">
-                {a.perfume.name}
-              </div>
-              <div className="mt-0.5 truncate text-[0.74rem] text-ink-faint">
-                {a.perfume.brandZh} · {a.perfume.styleTags[0]}
-              </div>
+              {(() => {
+                const np = nameParts(a.perfume);
+                return (
+                  <>
+                    <div className={`truncate text-[1.02rem] text-ink ${np.primaryIsZh ? "" : "font-display"}`}>
+                      {np.primary}
+                    </div>
+                    <div className="mt-0.5 truncate text-[0.74rem] text-ink-faint">
+                      {np.secondary ? `${np.secondary} · ` : ""}
+                      {a.perfume.brandZh} · {a.perfume.styleTags[0]}
+                    </div>
+                  </>
+                );
+              })()}
             </div>
             <div className="ml-3 shrink-0 text-right text-[0.72rem] text-ink-soft">
               {a.usage.spraysLabel}

@@ -72,7 +72,7 @@ export function useExplain(pick: ScoredPick | null, ctx: Context | null) {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        name: pick.perfume.name,
+        name: pick.perfume.nameZh || pick.perfume.name,
         brandZh: pick.perfume.brandZh,
         accords: pick.perfume.accords.slice(0, 4).map((a) => a.zh),
         styleTags: pick.perfume.styleTags,

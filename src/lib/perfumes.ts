@@ -26,7 +26,7 @@ export function buildSearch(perfumes: Perfume[]): MiniSearch<Perfume> {
   if (searchCache) return searchCache;
   const ms = new MiniSearch<Perfume>({
     idField: "id",
-    fields: ["name", "brand", "brandZh", "notesText"],
+    fields: ["nameZh", "aliasText", "name", "brand", "brandZh", "notesText"],
     storeFields: ["id"],
     tokenize,
     processTerm: (t) => t.toLowerCase(),
@@ -35,13 +35,15 @@ export function buildSearch(perfumes: Perfume[]): MiniSearch<Perfume> {
       processTerm: (t) => t.toLowerCase(),
       prefix: true,
       fuzzy: 0.15,
-      boost: { name: 3, brandZh: 2, brand: 2 },
+      boost: { nameZh: 4, aliasText: 4, name: 3, brandZh: 2, brand: 2 },
       combineWith: "OR",
     },
   });
   ms.addAll(
     perfumes.map((p) => ({
       ...p,
+      nameZh: p.nameZh ?? "",
+      aliasText: (p.aliases ?? []).join(" "),
       notesText: p.notesFlat.join(" "),
     })) as unknown as Perfume[]
   );

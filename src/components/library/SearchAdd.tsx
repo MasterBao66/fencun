@@ -3,7 +3,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { useApp } from "@/components/AppProvider";
 import { useStore } from "@/lib/store";
 import { buildSearch } from "@/lib/perfumes";
-import { SILLAGE_WORD } from "@/lib/format";
+import { nameParts } from "@/lib/format";
 import type { Perfume } from "@/lib/types";
 
 export function SearchAdd() {
@@ -78,10 +78,20 @@ export function SearchAdd() {
                       className="flex w-full items-center justify-between px-4 py-2.5 text-left transition-colors hover:bg-sunken disabled:cursor-default disabled:hover:bg-transparent"
                     >
                       <div className="min-w-0">
-                        <div className="truncate font-display text-[1rem] text-ink">{p.name}</div>
-                        <div className="mt-0.5 truncate text-[0.74rem] text-ink-faint">
-                          {p.brandZh} · {p.styleTags[0]} · 扩散{SILLAGE_WORD[p.sillageTier]}
-                        </div>
+                        {(() => {
+                          const np = nameParts(p);
+                          return (
+                            <>
+                              <div className={`truncate text-[1rem] text-ink ${np.primaryIsZh ? "" : "font-display"}`}>
+                                {np.primary}
+                              </div>
+                              <div className="mt-0.5 truncate text-[0.74rem] text-ink-faint">
+                                {np.secondary ? `${np.secondary} · ` : ""}
+                                {p.brandZh} · {p.styleTags[0]}
+                              </div>
+                            </>
+                          );
+                        })()}
                       </div>
                       <span
                         className={`ml-3 shrink-0 rounded-pill px-2.5 py-1 text-[0.72rem] ${

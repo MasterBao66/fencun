@@ -77,7 +77,7 @@ export default function ProfilePage() {
               return (
                 <li key={i} className="flex items-center justify-between py-2.5 text-sm">
                   <div className="min-w-0">
-                    <span className="truncate text-ink">{p ? p.name : "已移出的香水"}</span>
+                    <span className="truncate text-ink">{p ? p.nameZh || p.name : "已移出的香水"}</span>
                     <span className="ml-2 text-[0.72rem] text-ink-faint">
                       {OCCASION_LABEL[f.context.occasion] ?? f.context.occasion} ·{" "}
                       {Math.round(f.context.tempC)}°

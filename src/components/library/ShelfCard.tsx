@@ -1,5 +1,5 @@
 "use client";
-import { SILLAGE_WORD, durationShort } from "@/lib/format";
+import { SILLAGE_WORD, durationShort, nameParts } from "@/lib/format";
 import type { Perfume } from "@/lib/types";
 
 export function ShelfCard({
@@ -18,8 +18,20 @@ export function ShelfCard({
           很久没用
         </span>
       )}
-      <div className="truncate pr-16 font-display text-[1.05rem] text-ink">{p.name}</div>
-      <div className="mt-0.5 truncate text-[0.74rem] text-ink-faint">{p.brandZh}</div>
+      {(() => {
+        const np = nameParts(p);
+        return (
+          <>
+            <div className={`truncate pr-16 text-[1.05rem] text-ink ${np.primaryIsZh ? "" : "font-display"}`}>
+              {np.primary}
+            </div>
+            <div className="mt-0.5 truncate text-[0.74rem] text-ink-faint">
+              {np.secondary ? `${np.secondary} · ` : ""}
+              {p.brandZh}
+            </div>
+          </>
+        );
+      })()}
       <div className="mt-2.5 flex flex-wrap gap-1.5">
         {p.styleTags.slice(0, 2).map((t) => (
           <span key={t} className="rounded-pill bg-brand-wash px-2 py-0.5 text-[0.68rem] text-brand">

@@ -25,6 +25,7 @@ const selected = JSON.parse(fs.readFileSync(SELECTED, 'utf8'));
 const accordMap = loadMap('accords.json');
 const brandMap = loadMap('brands.json');
 const noteMap = loadMap('notes.json');
+const nameMap = loadMap('names.json'); // 按 id 键，值 {zh, aliases, source}
 
 const zhAccord = (en) => accordMap[en] || en;
 const zhBrand = (en) => brandMap[en] || en;
@@ -86,9 +87,12 @@ const out = selected.map((r) => {
   const notesBase = dedupe((r.notes.base || []).map(zhNote)).slice(0, 8);
   const notesFlatRaw = dedupe([...(r.notes.flat || [])].map(zhNote)).slice(0, 12);
   const allNotes = dedupe([...notesTop, ...notesMid, ...notesBase, ...notesFlatRaw]);
+  const nameEntry = nameMap[String(r.id)] || {};
   return {
     id: r.id,
     name: r.name,
+    nameZh: nameEntry.zh ?? null,
+    aliases: Array.isArray(nameEntry.aliases) ? nameEntry.aliases : [],
     brand: r.brand,
     brandZh: zhBrand(r.brand),
     gender: r.gender,
@@ -124,7 +128,9 @@ for (const r of selected) {
 }
 const pct = (miss, tot) => tot ? (100 * (1 - miss / tot)).toFixed(1) : '0';
 const sizeMB = (fs.statSync(outFile).size / 1e6).toFixed(2);
+const withZhName = out.filter((p) => p.nameZh).length;
 console.log(`✓ 构建 ${out.length} 款 → public/data/perfumes.min.json (${sizeMB} MB)`);
+console.log(`  中文香名覆盖 ${(100 * withZhName / out.length).toFixed(1)}%  (${withZhName}/${out.length}，其余回退英文)`);
 console.log(`  香调中文覆盖 ${pct(missAccord.size, totalAccord.size)}%  (${totalAccord.size - missAccord.size}/${totalAccord.size})`);
 console.log(`  品牌中文覆盖 ${pct(missBrand.size, totalBrand.size)}%  (${totalBrand.size - missBrand.size}/${totalBrand.size})`);
 console.log(`  气味中文覆盖 ${pct(missNote.size, totalNote.size)}%  (${totalNote.size - missNote.size}/${totalNote.size})`);

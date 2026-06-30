@@ -10,7 +10,9 @@ export type Gender = "male" | "female" | "unisex";
 
 export interface Perfume {
   id: number;
-  name: string;
+  name: string; // 英文原名（锚点，永不丢弃）
+  nameZh: string | null; // 中文名（官方名/公认绰号/直译；无则 null，展示回退英文）
+  aliases: string[]; // 其他中文叫法/绰号，用于搜索命中
   brand: string;
   brandZh: string;
   gender: Gender;

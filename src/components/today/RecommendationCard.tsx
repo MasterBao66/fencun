@@ -6,6 +6,7 @@ import {
   durationShort,
   SILLAGE_WORD,
   genderLabel,
+  nameParts,
 } from "@/lib/format";
 import type { ScoredPick, Context } from "@/lib/types";
 
@@ -66,10 +67,26 @@ export function RecommendationCard({
             </span>
           )}
         </div>
-        <h2 className="mt-3 font-display text-[1.7rem] font-medium leading-tight text-ink">
-          {p.name}
-        </h2>
-        <p className="mt-1 text-sm text-ink-soft">
+        {(() => {
+          const np = nameParts(p);
+          return (
+            <>
+              <h2
+                className={`mt-3 text-[1.7rem] font-medium leading-tight text-ink ${
+                  np.primaryIsZh ? "tracking-tight" : "font-display"
+                }`}
+              >
+                {np.primary}
+              </h2>
+              {np.secondary && (
+                <p className="mt-0.5 font-display text-[0.98rem] italic text-ink-faint">
+                  {np.secondary}
+                </p>
+              )}
+            </>
+          );
+        })()}
+        <p className="mt-1.5 text-sm text-ink-soft">
           {p.brandZh} · {genderLabel(p.gender)}
           {p.year ? ` · ${p.year}` : ""}
         </p>

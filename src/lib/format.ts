@@ -61,3 +61,15 @@ export const SILLAGE_WORD: Record<1 | 2 | 3 | 4, string> = {
   3: "半室",
   4: "外放",
 };
+
+// 名称展示：中文名为主、英文为辅；无中文名则英文作主、不带副名
+export function nameParts(p: { name: string; nameZh: string | null }): {
+  primary: string;
+  secondary: string | null;
+  primaryIsZh: boolean;
+} {
+  if (p.nameZh && p.nameZh.trim()) {
+    return { primary: p.nameZh, secondary: p.name, primaryIsZh: true };
+  }
+  return { primary: p.name, secondary: null, primaryIsZh: false };
+}
