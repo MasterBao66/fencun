@@ -45,3 +45,6 @@ next-env.d.ts
 
 # scratch
 /.scratch/
+
+.vercel
+.env*
