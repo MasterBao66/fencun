@@ -30,6 +30,11 @@ export default function RootLayout({
   return (
     <html lang="zh-CN" className={`${fraunces.variable} h-full antialiased`}>
       <body className="min-h-full">
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `(function(){try{var h=new Date().getHours();document.documentElement.dataset.theme=(h>=6&&h<18)?'day':'night';}catch(e){}})();`,
+          }}
+        />
         <AppProvider>
           <SiteChrome>{children}</SiteChrome>
         </AppProvider>

@@ -61,9 +61,9 @@ export default function TodayPage() {
 
   return (
     <div className="flex flex-col gap-5">
-      <header className="px-1">
+      <header className="px-1 pt-1">
         <Eyebrow>{dateLabel()}</Eyebrow>
-        <h1 className="mt-1 text-2xl font-medium tracking-tight text-ink">
+        <h1 className="mt-1.5 text-[1.7rem] font-medium leading-tight tracking-tight text-ink">
           今天，喷哪一瓶
         </h1>
       </header>

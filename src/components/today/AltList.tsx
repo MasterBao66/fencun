@@ -1,6 +1,7 @@
 "use client";
-import { Eyebrow } from "@/components/ui";
+import { Eyebrow, ScentDot } from "@/components/ui";
 import { SILLAGE_WORD, nameParts } from "@/lib/format";
+import { scentColors } from "@/lib/scentColor";
 import type { ScoredPick } from "@/lib/types";
 
 export function AltList({
@@ -19,23 +20,26 @@ export function AltList({
           <button
             key={a.perfume.id}
             onClick={() => onPick(a.perfume.id)}
-            className="card flex items-center justify-between px-4 py-3 text-left transition-colors hover:border-line-strong"
+            className="card flex items-center justify-between gap-3 px-4 py-3 text-left transition-colors hover:border-line-strong"
           >
-            <div className="min-w-0">
-              {(() => {
-                const np = nameParts(a.perfume);
-                return (
-                  <>
-                    <div className={`truncate text-[1.02rem] text-ink ${np.primaryIsZh ? "" : "font-display"}`}>
-                      {np.primary}
-                    </div>
-                    <div className="mt-0.5 truncate text-[0.74rem] text-ink-faint">
-                      {np.secondary ? `${np.secondary} · ` : ""}
-                      {a.perfume.brandZh} · {a.perfume.styleTags[0]}
-                    </div>
-                  </>
-                );
-              })()}
+            <div className="flex min-w-0 items-center gap-3">
+              <ScentDot sc={scentColors(a.perfume)} size={10} />
+              <div className="min-w-0">
+                {(() => {
+                  const np = nameParts(a.perfume);
+                  return (
+                    <>
+                      <div className={`truncate text-[1.02rem] text-ink ${np.primaryIsZh ? "" : "font-display"}`}>
+                        {np.primary}
+                      </div>
+                      <div className="mt-0.5 truncate text-[0.74rem] text-ink-faint">
+                        {np.secondary ? `${np.secondary} · ` : ""}
+                        {a.perfume.brandZh} · {a.perfume.styleTags[0]}
+                      </div>
+                    </>
+                  );
+                })()}
+              </div>
             </div>
             <div className="ml-3 shrink-0 text-right text-[0.72rem] text-ink-soft">
               {a.usage.spraysLabel}

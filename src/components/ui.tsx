@@ -1,5 +1,56 @@
 "use client";
 import { ReactNode } from "react";
+import type { ScentColor } from "@/lib/scentColor";
+import { rgba } from "@/lib/scentColor";
+
+// 香气球 —— 签名视觉：每瓶香的专属色光晕
+export function ScentOrb({ sc, size = 60 }: { sc: ScentColor; size?: number }) {
+  return (
+    <span
+      aria-hidden
+      className="aura-breathe block rounded-full"
+      style={{
+        width: size,
+        height: size,
+        background: sc.orb,
+        boxShadow: `0 6px 22px -6px ${rgba(sc.primary, 0.55)}, inset 0 1px 4px rgba(255,255,255,0.4)`,
+      }}
+    />
+  );
+}
+
+// 香气小点 —— 列表行的微缩身份
+export function ScentDot({ sc, size = 9 }: { sc: ScentColor; size?: number }) {
+  return (
+    <span
+      aria-hidden
+      className="inline-block shrink-0 rounded-full"
+      style={{ width: size, height: size, background: sc.orb, boxShadow: `0 1px 4px -1px ${rgba(sc.primary, 0.5)}` }}
+    />
+  );
+}
+
+// 香气带 —— 取代绿色进度条，按主香调强度上色分段
+export function ScentRibbon({ sc }: { sc: ScentColor }) {
+  if (!sc.ribbon.length) return null;
+  return (
+    <div className="flex flex-col gap-2">
+      <div className="flex h-[7px] overflow-hidden rounded-pill bg-sunken">
+        {sc.ribbon.map((seg, i) => (
+          <span
+            key={i}
+            className="bar-grow h-full"
+            style={{ width: `${seg.pct}%`, background: seg.color, animationDelay: `${i * 80}ms` }}
+          />
+        ))}
+      </div>
+      <div className="flex items-center justify-between text-[0.66rem] text-ink-faint">
+        <span>{sc.ribbon.map((s) => s.zh).join(" · ")}</span>
+        <span className="eyebrow !tracking-[0.22em]">香气成色</span>
+      </div>
+    </div>
+  );
+}
 
 export function Eyebrow({ children, className = "" }: { children: ReactNode; className?: string }) {
   return <div className={`eyebrow ${className}`}>{children}</div>;

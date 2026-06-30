@@ -6,23 +6,23 @@
    衬线配英文与数字、留白、近乎无形的阴影、克制的动效。
    ───────────────────────────────────────────────────────────── */
 @theme {
-  /* 色彩 —— 暖中性底 + 单一沉静主色 + 低饱和点缀 */
-  --color-paper: #f6f3ee;        /* 宣纸暖白（页面底） */
-  --color-paper-deep: #efeae1;   /* 略深的底，用于分区 */
+  /* 色彩 —— 暖中性底 + 单一沉静主色 + 低饱和点缀（白天主题，可被 [data-theme] 覆盖） */
+  --color-paper: #f4f0e9;        /* 宣纸暖白（页面底） */
+  --color-paper-deep: #ece6db;   /* 略深的底，用于分区 */
   --color-surface: #fffdf9;      /* 卡片面 */
-  --color-sunken: #f0ece4;       /* 凹陷/输入底 */
+  --color-sunken: #efe9df;       /* 凹陷/输入底 */
 
   --color-ink: #211d18;          /* 近黑暖棕（主文字） */
   --color-ink-soft: #574f45;     /* 次要文字 */
-  --color-ink-faint: #948b7d;    /* 第三级/说明 */
-  --color-line: #e4ded2;         /* 发丝分割线 */
-  --color-line-strong: #d6cfc0;
+  --color-ink-faint: #968d7e;    /* 第三级/说明 */
+  --color-line: #e3ddd0;         /* 发丝分割线 */
+  --color-line-strong: #d4ccbc;
 
-  --color-brand: #3a5a47;        /* 墨绿（主色） */
-  --color-brand-soft: #6d8a78;   /* 墨绿浅 */
-  --color-brand-wash: #eef1ec;   /* 墨绿极浅底 */
+  --color-brand: #37564a;        /* 墨绿（主色） */
+  --color-brand-soft: #6e8a78;   /* 墨绿浅 */
+  --color-brand-wash: #eaf0ea;   /* 墨绿极浅底 */
 
-  --color-accent: #c2a05f;       /* 香槟金（极少强调） */
+  --color-accent: #bf9d57;       /* 香槟金 */
   --color-accent-soft: #e6d4a8;
   --color-warn: #b07d4f;         /* 暖琥珀（分寸提醒，不用刺眼红） */
   --color-warn-wash: #f6ede2;
@@ -49,6 +49,34 @@
 
 :root {
   color-scheme: light;
+  --aura-1: rgba(194, 160, 95, 0.10);
+  --aura-2: rgba(58, 90, 71, 0.07);
+}
+/* 天气微调氛围光（叠加，仅改背景光晕色温，不动文字对比度） */
+html[data-weather="cold"] { --aura-1: rgba(120, 150, 170, 0.12); --aura-2: rgba(90, 120, 150, 0.08); }
+html[data-weather="hot_humid"] { --aura-1: rgba(200, 150, 80, 0.12); --aura-2: rgba(90, 130, 90, 0.08); }
+
+/* 入夜主题（由真实时段驱动，html[data-theme="night"]）—— 天气/时间成光 */
+html[data-theme="night"] {
+  color-scheme: dark;
+  --color-paper: #1c1a17;
+  --color-paper-deep: #232019;
+  --color-surface: #262219;
+  --color-sunken: #221f18;
+  --color-ink: #f3ece0;
+  --color-ink-soft: #cdc3b2;
+  --color-ink-faint: #8f8676;
+  --color-line: #332e25;
+  --color-line-strong: #403a2f;
+  --color-brand: #6e8a78;
+  --color-brand-soft: #9bb6a3;
+  --color-brand-wash: #23291f;
+  --color-accent: #d8b46a;
+  --color-accent-soft: #5a4a2a;
+  --color-warn: #c99152;
+  --color-warn-wash: #2a241c;
+  --aura-1: rgba(216, 180, 106, 0.14);
+  --aura-2: rgba(110, 138, 120, 0.10);
 }
 
 @layer base {
@@ -60,17 +88,29 @@
     background-color: var(--color-paper);
     color: var(--color-ink);
     font-family: var(--font-sans);
+    transition: background-color 0.6s var(--ease-out-soft), color 0.6s var(--ease-out-soft);
   }
-  /* 极淡的暖色氛围渐变作为固定底层（避免 background-attachment:fixed 的滚动重绘开销） */
+  /* 氛围光晕（随昼夜/天气变色温）作为固定底层 */
   body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: -2;
+    pointer-events: none;
+    background-image:
+      radial-gradient(1200px 620px at 82% -12%, var(--aura-1), transparent 62%),
+      radial-gradient(900px 520px at -12% 112%, var(--aura-2), transparent 56%);
+    transition: background-image 0.6s var(--ease-out-soft);
+  }
+  /* 极淡纸纹颗粒，制造空气感与质感（非纯色平面） */
+  body::after {
     content: "";
     position: fixed;
     inset: 0;
     z-index: -1;
     pointer-events: none;
-    background-image:
-      radial-gradient(1200px 600px at 80% -10%, rgba(194, 160, 95, 0.08), transparent 60%),
-      radial-gradient(900px 500px at -10% 110%, rgba(58, 90, 71, 0.06), transparent 55%);
+    opacity: 0.04;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
   }
   /* 数字用衬线、等宽对齐，更精致 */
   .tnum {
@@ -140,7 +180,13 @@
   transform-origin: left center;
   animation: fc-grow 0.7s var(--ease-out-soft) both;
 }
+/* 香气球：缓慢呼吸（签名动效） */
+@keyframes fc-breathe {
+  0%, 100% { transform: scale(1); opacity: 0.95; }
+  50% { transform: scale(1.06); opacity: 1; }
+}
+.aura-breathe { animation: fc-breathe 6s ease-in-out infinite; }
 
 @media (prefers-reduced-motion: reduce) {
-  .animate-fade-up, .animate-fade-in, .bar-grow { animation: none; }
+  .animate-fade-up, .animate-fade-in, .bar-grow, .aura-breathe { animation: none; }
 }
