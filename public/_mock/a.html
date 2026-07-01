@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>方向A · 香誌</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..600;1,9..144,400..500&family=Noto+Serif+SC:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bone:#f3f0e8; --bone-deep:#ebe7dc; --ink:#16130d; --ink2:#4a4438; --faint:#8f8676;
+    --line:#d8d2c4; --green:#1f3d2f; --gold:#9a7b3f;
+    --serif:"Noto Serif SC", serif; --disp:"Fraunces", serif;
+    --sans:"PingFang SC","Microsoft YaHei",system-ui,sans-serif;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{width:420px;background:var(--bone);color:var(--ink);font-family:var(--sans);-webkit-font-smoothing:antialiased}
+  .wrap{padding:26px 24px 40px}
+  .cap{font-family:var(--disp);text-transform:uppercase;letter-spacing:.26em;font-size:10px;color:var(--faint);font-weight:500}
+  .rule{height:1px;background:var(--ink);opacity:.85}
+  .rule-thin{height:1px;background:var(--line)}
+
+  /* 报头 */
+  .masthead{display:flex;align-items:flex-end;justify-content:space-between;padding-bottom:10px}
+  .logo{font-family:var(--serif);font-weight:700;font-size:30px;letter-spacing:.12em;line-height:1}
+  .logo small{font-family:var(--disp);font-size:10px;letter-spacing:.32em;color:var(--faint);display:block;margin-top:6px;font-weight:500}
+  .issue{text-align:right;font-family:var(--disp);font-size:11px;color:var(--ink2);line-height:1.5;letter-spacing:.04em}
+  .weatherline{display:flex;justify-content:space-between;align-items:center;margin-top:9px;font-size:12px;color:var(--ink2);letter-spacing:.02em}
+  .weatherline b{font-family:var(--disp);font-weight:500;font-size:13px;color:var(--ink)}
+
+  /* 分节标题 */
+  .sec{display:flex;align-items:baseline;gap:10px;margin:30px 0 16px}
+  .sec .no{font-family:var(--disp);font-size:13px;color:var(--gold);font-style:italic}
+  .sec h3{font-family:var(--serif);font-weight:600;font-size:15px;letter-spacing:.08em}
+  .sec .fill{flex:1;height:1px;background:var(--line);align-self:center}
+
+  /* 主角 */
+  .name{font-family:var(--serif);font-weight:700;font-size:40px;line-height:1.05;letter-spacing:.01em}
+  .en{font-family:var(--disp);font-style:italic;font-size:19px;color:var(--gold);margin-top:6px}
+  .meta{font-size:12px;color:var(--faint);margin-top:9px;letter-spacing:.03em}
+  .tags{margin-top:14px;font-size:12px;color:var(--ink2)}
+  .tags span{border-bottom:1px solid var(--gold);padding-bottom:1px;margin-right:14px}
+
+  /* AI 引文 */
+  .quote{position:relative;margin:20px 0 4px;padding-left:18px}
+  .quote::before{content:"“";position:absolute;left:-4px;top:-14px;font-family:var(--serif);font-size:46px;color:var(--gold);opacity:.6;line-height:1}
+  .quote p{font-family:var(--serif);font-weight:500;font-size:16px;line-height:1.95;color:var(--ink)}
+  .byline{margin-top:12px}
+
+  /* 规格行 */
+  .spec{display:flex;margin-top:26px;border-top:1px solid var(--ink);border-bottom:1px solid var(--line)}
+  .spec>div{flex:1;padding:16px 6px;text-align:center}
+  .spec>div+div{border-left:1px solid var(--line)}
+  .spec .k{font-family:var(--disp);text-transform:uppercase;letter-spacing:.2em;font-size:9px;color:var(--faint)}
+  .spec .v{font-family:var(--serif);font-weight:600;font-size:19px;margin-top:8px;letter-spacing:.02em}
+  .spec .s{font-size:10px;color:var(--faint);margin-top:5px}
+
+  .more{margin-top:18px;text-align:center;font-size:12px;color:var(--faint);letter-spacing:.1em}
+  .cta{margin-top:20px;display:flex;gap:10px}
+  .cta a{flex:1;text-align:center;padding:15px;font-size:14px;letter-spacing:.14em}
+  .cta .primary{background:var(--ink);color:var(--bone);font-family:var(--serif)}
+  .cta .ghost{border:1px solid var(--ink);color:var(--ink)}
+
+  /* 备选 */
+  .alt{display:flex;justify-content:space-between;align-items:baseline;padding:14px 0;border-bottom:1px solid var(--line)}
+  .alt .l .zh{font-family:var(--serif);font-weight:600;font-size:16px}
+  .alt .l .en{font-family:var(--disp);font-style:italic;font-size:12px;color:var(--faint);margin-left:8px}
+  .alt .l .sub{font-size:11px;color:var(--faint);margin-top:3px}
+  .alt .r{font-size:11px;color:var(--ink2);font-family:var(--disp);letter-spacing:.05em;white-space:nowrap}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="rule"></div>
+  <div class="masthead" style="padding-top:12px">
+    <div class="logo">氛寸<small>FĒN CÙN · 香誌</small></div>
+    <div class="issue">壹周 · 第 27 期<br>7月1日 週三</div>
+  </div>
+  <div class="rule-thin"></div>
+  <div class="weatherline"><span>此刻 · 上海　大雨　湿度 97%</span><b>23°</b></div>
+  <div class="rule" style="margin-top:9px"></div>
+
+  <div class="sec"><span class="no">No.01</span><h3>今日一喷</h3><span class="fill"></span></div>
+
+  <div class="name">信仰之水</div>
+  <div class="en">Aventus</div>
+  <div class="meta">CREED 信仰 · 偏男香 · 2010　—　日常百搭</div>
+
+  <div class="quote">
+    <p>今晚上海又闷又湿，25 度加高湿度，通勤路上其实挺考验香水。信仰之水这种果香与木质皮革的搭配，在潮湿空气里不发腻，反而透出一股干净利落。手腕与衣物内侧各一下，一臂之内的距离刚好，能撑一整个白天。</p>
+    <div class="byline cap">氛寸 · 此刻为你解读</div>
+  </div>
+
+  <div class="spec">
+    <div><div class="k">喷量</div><div class="v">2–3 下</div><div class="s">先少后补</div></div>
+    <div><div class="k">社交距离</div><div class="v">一臂之内</div><div class="s">近身可感</div></div>
+    <div><div class="k">留香</div><div class="v">一整个白天</div><div class="s">无需补喷</div></div>
+  </div>
+
+  <div class="more">— 展开分寸建议 —</div>
+
+  <div class="cta">
+    <a class="primary">换一瓶</a>
+  </div>
+
+  <div class="sec"><span class="no">No.02</span><h3>也可以考虑</h3><span class="fill"></span></div>
+  <div class="alt"><div class="l"><div><span class="zh">浅蓝</span><span class="en">Light Blue</span></div><div class="sub">杜嘉班纳 · 清新通勤</div></div><div class="r">2–3 下 · 近身</div></div>
+  <div class="alt"><div class="l"><div><span class="zh">蓝风铃</span><span class="en">Wild Bluebell</span></div><div class="sub">祖·玛珑 · 盛夏轻盈</div></div><div class="r">2–3 下 · 贴肤</div></div>
+  <div class="alt" style="border-bottom:none"><div class="l"><div><span class="zh">旷野</span><span class="en">Sauvage</span></div><div class="sub">迪奥 · 日常百搭</div></div><div class="r">1–2 下 · 半室</div></div>
+</div>
+</body>
+</html>
