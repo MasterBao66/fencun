@@ -89,7 +89,7 @@ export function useRecommendation(ctx: Context | null) {
 }
 
 const DAY_MS = 24 * 3600 * 1000;
-const DUSTY_MS = 21 * DAY_MS; // 用过但很久没碰
+export const DUSTY_MS = 21 * DAY_MS; // 用过但很久没碰（全应用统一口径：吃灰=21 天）
 const NEVER_MS = 14 * DAY_MS; // 从没用过、入柜超两周
 
 // 发现型钩子：吃灰提醒(S5) + 天气突变预警(S4)——传播主线
@@ -140,6 +140,11 @@ export function useNudges(ctx: Context | null, rec: RecResult | null): Nudge[] {
         maxCount = c;
         habitualId = id;
       }
+    }
+    // 冷启动兜底：还没形成用香习惯时，退回"库里今天最相关、却被判 avoid 的那瓶"——让旗舰钩子第一周不哑火
+    if (habitualId == null) {
+      const flagged = rec.ranked.find((r) => r.verdict === "avoid" && r.perfume.id !== primaryId);
+      if (flagged) habitualId = flagged.perfume.id;
     }
     if (habitualId != null && habitualId !== primaryId) {
       const hp = buildPick(byId.get(habitualId)!, ctx, bias.get(habitualId));

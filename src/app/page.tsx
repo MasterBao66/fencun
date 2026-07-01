@@ -22,6 +22,7 @@ export default function TodayPage() {
   const rec = useRecommendation(ctx);
   const lib = useLibraryPerfumes();
   const feedbacks = useStore((s) => s.feedbacks);
+  const markWorn = useStore((s) => s.markWorn);
   const hydrated = useStore((s) => s.hydrated);
 
   const [selectedId, setSelectedId] = useState<number | null>(null);
@@ -95,7 +96,11 @@ export default function TodayPage() {
         onClose={() => setSheetOpen(false)}
         perfumes={lib}
         currentId={activePick?.perfume.id ?? null}
-        onSelect={(id) => setSelectedId(id)}
+        onSelect={(id) => {
+          // 从"换一瓶"里选定 = 今天采纳这瓶 → 记一笔用香（解耦"记录用香"与"留反馈"，修正吃灰误判）
+          setSelectedId(id);
+          markWorn(id);
+        }}
       />
     </div>
   );

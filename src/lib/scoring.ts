@@ -137,8 +137,8 @@ export function score(
   const W = weatherMultiplier(p, ctx.feel);
   const Q = qualityPrior(p);
 
-  // 线性组合（权重显式、可单测、可向用户解释）
-  const linear = 0.34 * sSeason + 0.16 * sDay + 0.32 * sOcc + 0.18 * 0.5;
+  // 线性组合（权重显式、归一到 1、可单测、可向用户解释）；个人偏好不占加性权重，改由下方 biasMul 乘性承担
+  const linear = 0.41 * sSeason + 0.19 * sDay + 0.4 * sOcc;
   const biasMul = 1 + (bias?.likeScore ?? 0) * 0.25;
   const total = linear * W * Q * biasMul * avoidPenalty(p, ctx.avoid);
   return { total, season: sSeason, daypart: sDay, occasion: sOcc, weather: W, quality: Q };

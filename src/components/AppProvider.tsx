@@ -125,7 +125,10 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
     if (!hydrated || weather || locState === "locating") return;
     const city = useStore.getState().city;
     if (city) {
-      fetchByCity(city);
+      // 记忆城市：接口失败/超时也要落到 error，触发 useResolvedContext 的季节+时段降级（否则返场用户卡在 idle→零推荐）
+      fetchByCity(city).then((ok) => {
+        if (!ok) setLocState("error");
+      });
     } else {
       resolveByCoords();
     }
