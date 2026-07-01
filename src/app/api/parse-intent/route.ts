@@ -7,6 +7,7 @@ export const runtime = "nodejs";
 
 const KEY = process.env.DEEPSEEK_API_KEY;
 const BASE = process.env.DEEPSEEK_BASE_URL ?? "https://api.deepseek.com";
+const MODEL = process.env.DEEPSEEK_MODEL ?? "deepseek-v4-flash";
 
 const PatchSchema = z.object({
   occasion: z.enum(["commute", "work", "date", "social", "formal", "casual", "home", "sport"]),
@@ -64,7 +65,7 @@ export async function POST(req: NextRequest) {
       method: "POST",
       headers: { "Content-Type": "application/json", Authorization: `Bearer ${KEY}` },
       body: JSON.stringify({
-        model: "deepseek-chat",
+        model: MODEL,
         messages: [
           { role: "system", content: SYSTEM },
           { role: "user", content: text },
