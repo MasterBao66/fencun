@@ -1,6 +1,7 @@
 "use client";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { ThemeToggle } from "@/components/ThemeToggle";
 
 const NAV = [
   { href: "/", label: "今日", en: "Today" },
@@ -44,24 +45,27 @@ export function SiteChrome({ children }: { children: React.ReactNode }) {
             <span className="serif text-[1.35rem] font-bold tracking-[0.12em] text-ink">氛寸</span>
             <span className="disp text-[0.6rem] uppercase tracking-[0.34em] text-accent">Fēn&nbsp;Cùn</span>
           </Link>
-          <nav className="hidden items-baseline gap-9 md:flex">
-            {NAV.map((n) => (
-              <Link key={n.href} href={n.href} className="group flex flex-col items-center">
-                <span
-                  className={`serif text-[0.95rem] transition-colors ${
-                    isActive(n.href) ? "text-ink" : "text-ink-faint hover:text-ink-soft"
-                  }`}
-                >
-                  {n.label}
-                </span>
-                <span
-                  className={`mt-1 h-px w-full origin-center bg-accent transition-transform duration-300 ${
-                    isActive(n.href) ? "scale-x-100" : "scale-x-0 group-hover:scale-x-50"
-                  }`}
-                />
-              </Link>
-            ))}
-          </nav>
+          <div className="flex items-center gap-7">
+            <nav className="hidden items-baseline gap-9 md:flex">
+              {NAV.map((n) => (
+                <Link key={n.href} href={n.href} className="group flex flex-col items-center">
+                  <span
+                    className={`serif text-[0.95rem] transition-colors ${
+                      isActive(n.href) ? "text-ink" : "text-ink-faint hover:text-ink-soft"
+                    }`}
+                  >
+                    {n.label}
+                  </span>
+                  <span
+                    className={`mt-1 h-px w-full origin-center bg-accent transition-transform duration-300 ${
+                      isActive(n.href) ? "scale-x-100" : "scale-x-0 group-hover:scale-x-50"
+                    }`}
+                  />
+                </Link>
+              ))}
+            </nav>
+            <ThemeToggle />
+          </div>
         </div>
       </header>
 

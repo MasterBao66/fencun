@@ -48,7 +48,7 @@ export default function RootLayout({
       <body className="min-h-full">
         <script
           dangerouslySetInnerHTML={{
-            __html: `(function(){try{var h=new Date().getHours();document.documentElement.dataset.theme=(h>=6&&h<18)?'day':'night';}catch(e){}})();`,
+            __html: `(function(){try{var s=localStorage.getItem('fencun-theme');var h=new Date().getHours();document.documentElement.dataset.theme=s||((h>=6&&h<18)?'day':'night');}catch(e){}})();`,
           }}
         />
         <AppProvider>
