@@ -60,6 +60,8 @@ const browser = await puppeteer.launch({
 
 try {
   const page = await browser.newPage();
+  await page.setCacheEnabled(false); // 防止截到浏览器缓存的旧 CSS
+  // 注意：dev server 若在 git 回退/大改后没热更新，可能吐旧编译产物 —— 截图前最好重启 dev（见 README）
   // 先到同源根页种数据（domcontentloaded 即可，不等完整加载）
   await page.goto(BASE + "/", { waitUntil: "domcontentloaded" });
   const seeded = await page.evaluate(SEED);
