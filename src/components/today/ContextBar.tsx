@@ -100,7 +100,7 @@ export function ContextBar({ ctx }: { ctx: Context | null }) {
               <span className="text-[1.05rem] text-ink-faint">·</span>
               <span className="disp text-[2.15rem] font-normal leading-none">
                 {Math.round(ctx.tempC)}
-                <span className="text-[0.6em] text-accent">°</span>
+                <span className="text-[0.52em] text-accent">℃</span>
               </span>
             </div>
           </div>

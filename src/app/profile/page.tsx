@@ -89,7 +89,7 @@ export default function ProfilePage() {
                     </span>
                     <span className="disp ml-2 text-[0.7rem] tracking-wide text-ink-faint">
                       {OCCASION_LABEL[f.context.occasion] ?? f.context.occasion} ·{" "}
-                      {Math.round(f.context.tempC)}°
+                      {Math.round(f.context.tempC)}℃
                     </span>
                   </div>
                   <span className="serif shrink-0 text-[0.82rem] font-semibold text-accent">
