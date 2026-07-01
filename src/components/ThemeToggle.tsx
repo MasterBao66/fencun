@@ -11,11 +11,14 @@ export function ThemeToggle() {
 
   function toggle() {
     const next = theme === "night" ? "day" : "night";
-    document.documentElement.dataset.theme = next;
+    const el = document.documentElement;
+    el.classList.add("theme-switching"); // 本次切换禁用过渡，避免城市名等淡入
+    el.dataset.theme = next;
     try {
       localStorage.setItem("fencun-theme", next);
     } catch {}
     setTheme(next);
+    requestAnimationFrame(() => requestAnimationFrame(() => el.classList.remove("theme-switching")));
   }
 
   // 挂载前占位，避免 SSR/客户端不一致

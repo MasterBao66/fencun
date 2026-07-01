@@ -6,14 +6,22 @@ export function ShelfCard({
   p,
   dusty,
   onRemove,
+  onOpen,
 }: {
   p: Perfume;
   dusty?: boolean;
   onRemove: () => void;
+  onOpen: () => void;
 }) {
   const np = nameParts(p);
   return (
-    <div className="card relative flex flex-col p-4">
+    <div
+      onClick={onOpen}
+      role="button"
+      tabIndex={0}
+      onKeyDown={(e) => (e.key === "Enter" || e.key === " ") && onOpen()}
+      className="card relative flex cursor-pointer flex-col p-4 transition-shadow hover:border-line-strong"
+    >
       {dusty && (
         <span className="eyebrow absolute right-3 top-3.5 !text-[0.55rem] !text-warn">很久没用</span>
       )}
@@ -34,7 +42,10 @@ export function ShelfCard({
       </div>
 
       <button
-        onClick={onRemove}
+        onClick={(e) => {
+          e.stopPropagation();
+          onRemove();
+        }}
         className="absolute bottom-3.5 right-3 text-ink-faint opacity-50 transition-all hover:text-warn hover:opacity-100 focus:opacity-100"
         aria-label="移出香柜"
         title="移出香柜"

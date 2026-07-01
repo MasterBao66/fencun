@@ -71,33 +71,35 @@ export function ContextBar({ ctx }: { ctx: Context | null }) {
 
       {ctx ? (
         <>
-          <div className="mt-3 flex items-end justify-between gap-3">
+          <button
+            onClick={() => setEditing((v) => !v)}
+            className="group mt-3 flex items-center gap-1.5"
+            aria-label="切换城市"
+          >
+            <LocationPin />
+            <span className="serif text-[0.98rem] font-semibold text-ink group-hover:text-accent">
+              {ctx.city}
+            </span>
+            <svg width="11" height="11" viewBox="0 0 24 24" className={`text-ink-faint transition-transform ${editing ? "rotate-180" : ""}`}>
+              <path d="M6 9l6 6 6-6" stroke="currentColor" strokeWidth="2.2" fill="none" strokeLinecap="round" />
+            </svg>
+          </button>
+
+          <div className="mt-2.5 flex items-end justify-between gap-3">
             <div className="min-w-0">
-              <button
-                onClick={() => setEditing((v) => !v)}
-                className="group flex items-center gap-1.5"
-                aria-label="切换城市"
-              >
-                <LocationPin />
-                <span className="serif text-[0.98rem] font-semibold text-ink transition-colors group-hover:text-accent">
-                  {ctx.city}
-                </span>
-                <svg width="11" height="11" viewBox="0 0 24 24" className={`text-ink-faint transition-transform ${editing ? "rotate-180" : ""}`}>
-                  <path d="M6 9l6 6 6-6" stroke="currentColor" strokeWidth="2.2" fill="none" strokeLinecap="round" />
-                </svg>
-              </button>
-              <div className="serif mt-2.5 text-[1.4rem] font-bold leading-tight text-ink">
+              <div className="serif text-[1.5rem] font-bold leading-tight text-ink">
                 {weatherGreeting(ctx)}
               </div>
-              <p className="mt-2 text-[0.76rem] text-ink-faint">
+              {/* 下沿基线：与右侧大号温度底部对齐 */}
+              <p className="mt-2.5 text-[0.76rem] leading-none text-ink-faint">
                 湿度 {Math.round(ctx.humidity)}% · 体感{FEEL_ZH[ctx.feel]}
               </p>
             </div>
-            <div className="shrink-0 text-right leading-none">
-              <div className="serif text-[0.86rem] text-ink-soft">{ctx.weatherText}</div>
-              <span className="disp mt-1 inline-block text-[3.2rem] font-normal leading-[0.8] text-ink">
+            <div className="shrink-0 text-right">
+              <div className="serif mb-1 text-[0.86rem] leading-none text-ink-soft">{ctx.weatherText}</div>
+              <span className="disp block text-[3.4rem] font-normal leading-none text-ink">
                 {Math.round(ctx.tempC)}
-                <span className="align-top text-[1.25rem] text-accent">°</span>
+                <span className="text-[1.15rem] text-accent">°</span>
               </span>
             </div>
           </div>

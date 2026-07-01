@@ -6,24 +6,24 @@
    白天=浅色，入夜=深色三色，按真实时段自动切换
    ───────────────────────────────────────────────────────────── */
 @theme {
-  /* 白天 —— 底色略深的暖白，卡片近白，明度差大 → 卡片浮起 */
-  --color-paper: #eae4d6;
-  --color-paper-deep: #e0dac9;
-  --color-surface: #fdfbf6;
-  --color-sunken: #e7e1d1;
+  /* 白天 —— 更浅更中性的暖白（去棕黄），卡片近纯白，靠阴影浮起 */
+  --color-paper: #f1eee7;
+  --color-paper-deep: #e8e4db;
+  --color-surface: #fffefb;
+  --color-sunken: #eae5db;
 
-  --color-ink: #0d0a05;          /* 近黑（主标题） */
-  --color-ink-soft: #171308;     /* 深墨（正文，强对比） */
-  --color-ink-faint: #362f1d;    /* 说明文字（继续压深，不发浅） */
-  --color-line: #d5cdba;
-  --color-line-strong: #bcb299;
+  --color-ink: #0b0904;          /* 近黑（主标题） */
+  --color-ink-soft: #141009;     /* 深墨（正文，强对比、去黄） */
+  --color-ink-faint: #29251a;    /* 说明文字（继续压深、降黄） */
+  --color-line: #ddd6c6;
+  --color-line-strong: #c2b9a2;
 
   --color-brand: #26402f;
   --color-brand-soft: #567562;
-  --color-brand-wash: #e5ebe3;
+  --color-brand-wash: #e6ece4;
 
-  --color-accent: #6d5013;       /* 香槟金（浅色版更深，够醒目） */
-  --color-accent-soft: #9a7d3a;
+  --color-accent: #634913;       /* 香槟金（浅色版更深，够醒目） */
+  --color-accent-soft: #8f7331;
   --color-warn: #925026;
   --color-warn-wash: #eee1cc;
 
@@ -177,6 +177,12 @@ html[data-theme="night"] {
     border-color: var(--color-accent);
     color: #131315;
   }
+}
+
+/* 切换日/夜主题时，短暂禁用一切过渡/动画，避免文字(如城市名)因色彩过渡而"逐渐出现" */
+html.theme-switching, html.theme-switching *, html.theme-switching *::before, html.theme-switching *::after {
+  transition: none !important;
+  animation-duration: 0s !important;
 }
 
 @keyframes fc-fade-up { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }

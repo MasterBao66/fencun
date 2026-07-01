@@ -1,10 +1,11 @@
 "use client";
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import { useStore } from "@/lib/store";
 import { useLibraryPerfumes } from "@/lib/hooks";
 import { Eyebrow } from "@/components/ui";
 import { SearchAdd } from "@/components/library/SearchAdd";
 import { ShelfCard } from "@/components/library/ShelfCard";
+import { PerfumeCard } from "@/components/library/PerfumeCard";
 
 const DUSTY_MS = 30 * 24 * 3600 * 1000;
 
@@ -13,6 +14,7 @@ export default function LibraryPage() {
   const userPerfumes = useStore((s) => s.userPerfumes);
   const removePerfume = useStore((s) => s.removePerfume);
   const hydrated = useStore((s) => s.hydrated);
+  const [detailId, setDetailId] = useState<number | null>(null);
   const wornMap = useMemo(
     () => new Map(userPerfumes.map((u) => [u.perfumeId, u])),
     [userPerfumes]
@@ -61,11 +63,14 @@ export default function LibraryPage() {
                 p={p}
                 dusty={dusty}
                 onRemove={() => removePerfume(p.id)}
+                onOpen={() => setDetailId(p.id)}
               />
             );
           })}
         </div>
       )}
+
+      <PerfumeCard p={lib.find((x) => x.id === detailId) ?? null} onClose={() => setDetailId(null)} />
     </div>
   );
 }
