@@ -18,6 +18,7 @@ type RecResult = ReturnType<typeof recommend>;
 export function useResolvedContext(): Context | null {
   const { weather } = useApp();
   const occasion = useStore((s) => s.occasion);
+  const scene = useStore((s) => s.scene);
   return useMemo(() => {
     if (!weather) return null;
     const now = new Date();
@@ -30,10 +31,17 @@ export function useResolvedContext(): Context | null {
       feel: feelFromWeather(weather.tempC, weather.humidity),
       daypart: daypartFromHour(now.getHours()),
       season: seasonFromDateTemp(now, weather.tempC),
-      occasion,
+      // 自然语言场景优先于 chip
+      occasion: scene?.occasion ?? occasion,
+      formality: scene?.formality,
+      intimacy: scene?.intimacy,
+      avoid: scene?.avoid,
+      notePreference: scene?.notePreference,
+      sceneLabel: scene?.label,
+      rawText: scene?.rawText,
       approximate: weather.approximate,
     };
-  }, [weather, occasion]);
+  }, [weather, occasion, scene]);
 }
 
 // 用户库内的香水对象
@@ -137,7 +145,7 @@ export function useExplain(pick: ScoredPick | null, ctx: Context | null) {
 
   const key =
     pick && ctx
-      ? `${pick.perfume.id}-${ctx.occasion}-${Math.round(ctx.tempC)}-${pick.verdict}`
+      ? `${pick.perfume.id}-${ctx.occasion}-${Math.round(ctx.tempC)}-${pick.verdict}-${ctx.sceneLabel ?? ""}`
       : "";
 
   useEffect(() => {
@@ -170,6 +178,7 @@ export function useExplain(pick: ScoredPick | null, ctx: Context | null) {
           accords: pick.perfume.accords.slice(0, 4).map((a) => a.zh),
           styleTags: pick.perfume.styleTags,
           verdict: pick.verdict,
+          scene: ctx.sceneLabel ? { label: ctx.sceneLabel, rawText: ctx.rawText } : null,
           context: {
             city: ctx.city,
             tempC: ctx.tempC,
