@@ -82,7 +82,7 @@ export function SearchAdd() {
                           const np = nameParts(p);
                           return (
                             <>
-                              <div className={`truncate text-[1rem] text-ink ${np.primaryIsZh ? "" : "font-display"}`}>
+                              <div className={`truncate text-[1.02rem] text-ink ${np.primaryIsZh ? "serif" : "font-display"}`}>
                                 {np.primary}
                               </div>
                               <div className="mt-0.5 truncate text-[0.74rem] text-ink-faint">

@@ -43,8 +43,8 @@ export function SiteChrome({ children }: { children: React.ReactNode }) {
       <header className="sticky top-0 z-30 border-b border-line/70 bg-paper/80 backdrop-blur-md">
         <div className="mx-auto flex h-16 max-w-3xl items-center justify-between px-5">
           <Link href="/" className="group flex items-baseline gap-2.5">
-            <span className="text-xl font-medium tracking-[0.14em] text-ink">氛寸</span>
-            <span className="font-display text-[0.62rem] uppercase tracking-[0.34em] text-ink-faint transition-colors group-hover:text-brand">
+            <span className="serif text-[1.4rem] font-semibold tracking-[0.16em] text-ink">氛寸</span>
+            <span className="font-display text-[0.6rem] uppercase italic tracking-[0.3em] text-ink-faint transition-colors group-hover:text-oxblood">
               Fēn&nbsp;Cùn
             </span>
           </Link>

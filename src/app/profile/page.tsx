@@ -38,7 +38,7 @@ export default function ProfilePage() {
     <div className="flex flex-col gap-5">
       <header className="px-1">
         <Eyebrow>我的 · Me</Eyebrow>
-        <h1 className="mt-1 text-2xl font-medium tracking-tight text-ink">我的分寸</h1>
+        <h1 className="serif mt-1.5 text-[1.9rem] font-medium tracking-tight text-ink">我的分寸</h1>
       </header>
 
       {/* 统计 */}

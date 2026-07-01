@@ -8,7 +8,6 @@ import {
   useExplain,
 } from "@/lib/hooks";
 import { buildPick, aggregateBias } from "@/lib/recommend";
-import { Eyebrow } from "@/components/ui";
 import { ContextBar } from "@/components/today/ContextBar";
 import { OccasionChips } from "@/components/today/OccasionChips";
 import { RecommendationCard } from "@/components/today/RecommendationCard";
@@ -35,6 +34,7 @@ export default function TodayPage() {
   const lib = useLibraryPerfumes();
   const feedbacks = useStore((s) => s.feedbacks);
   const hydrated = useStore((s) => s.hydrated);
+  const markWorn = useStore((s) => s.markWorn);
 
   const [selectedId, setSelectedId] = useState<number | null>(null);
   const [sheetOpen, setSheetOpen] = useState(false);
@@ -61,14 +61,7 @@ export default function TodayPage() {
 
   return (
     <div className="flex flex-col gap-5">
-      <header className="px-1 pt-1">
-        <Eyebrow>{dateLabel()}</Eyebrow>
-        <h1 className="mt-1.5 text-[1.7rem] font-medium leading-tight tracking-tight text-ink">
-          今天，喷哪一瓶
-        </h1>
-      </header>
-
-      <ContextBar ctx={ctx} />
+      <ContextBar ctx={ctx} dateLabel={dateLabel()} />
       <OccasionChips />
 
       {!hydrated ? (
@@ -90,6 +83,7 @@ export default function TodayPage() {
             explainSource={explain.source}
             onChangeBottle={() => setSheetOpen(true)}
             onReset={() => setSelectedId(null)}
+            onUse={() => markWorn(activePick.perfume.id)}
           />
           <AltList alts={rec?.alternatives ?? []} onPick={(id) => setSelectedId(id)} />
           <FeedbackBar perfumeId={activePick.perfume.id} ctx={ctx} />
