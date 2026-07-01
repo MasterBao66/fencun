@@ -8,7 +8,6 @@ import {
   useExplain,
 } from "@/lib/hooks";
 import { buildPick, aggregateBias } from "@/lib/recommend";
-import { Eyebrow } from "@/components/ui";
 import { ContextBar } from "@/components/today/ContextBar";
 import { OccasionChips } from "@/components/today/OccasionChips";
 import { RecommendationCard } from "@/components/today/RecommendationCard";
@@ -60,19 +59,19 @@ export default function TodayPage() {
   const explain = useExplain(activePick, ctx);
 
   return (
-    <div className="flex flex-col gap-5">
-      <header className="px-1 pt-1">
-        <Eyebrow>{dateLabel()}</Eyebrow>
-        <h1 className="mt-1.5 text-[1.7rem] font-medium leading-tight tracking-tight text-ink">
-          今天，喷哪一瓶
-        </h1>
-      </header>
+    <div className="flex flex-col gap-6">
+      <div className="flex items-baseline justify-between">
+        <span className="serif text-[1.05rem] font-semibold text-ink">
+          {ctx?.daypart === "night" ? "今夜" : "今日"}
+        </span>
+        <span className="disp text-[0.72rem] tracking-[0.12em] text-ink-faint">{dateLabel()}</span>
+      </div>
 
       <ContextBar ctx={ctx} />
       <OccasionChips />
 
       {!hydrated ? (
-        <div className="card h-48 animate-pulse bg-sunken/40" />
+        <div className="h-56 animate-pulse bg-sunken/50" />
       ) : lib.length === 0 ? (
         <EmptyShelf />
       ) : !ctx ? (
