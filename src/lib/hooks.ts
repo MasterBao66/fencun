@@ -10,7 +10,7 @@ import type { Context, Perfume, ScoredPick } from "./types";
 // 发现型钩子（S4 天气突变预警 / S5 吃灰提醒）
 export type Nudge =
   | { kind: "dusty"; perfume: Perfume; days: number; pick: ScoredPick }
-  | { kind: "weather"; habitual: Perfume; better: Perfume | null; reason: string };
+  | { kind: "weather"; habitual: Perfume; better: Perfume | null; reason: string; basis: "habit" | "cold" };
 
 type RecResult = ReturnType<typeof recommend>;
 
@@ -141,10 +141,14 @@ export function useNudges(ctx: Context | null, rec: RecResult | null): Nudge[] {
         habitualId = id;
       }
     }
+    let basis: "habit" | "cold" = habitualId != null ? "habit" : "cold";
     // 冷启动兜底：还没形成用香习惯时，退回"库里今天最相关、却被判 avoid 的那瓶"——让旗舰钩子第一周不哑火
     if (habitualId == null) {
       const flagged = rec.ranked.find((r) => r.verdict === "avoid" && r.perfume.id !== primaryId);
-      if (flagged) habitualId = flagged.perfume.id;
+      if (flagged) {
+        habitualId = flagged.perfume.id;
+        basis = "cold"; // 不是"常喷"，只是今天库里被判不宜的一瓶 → 文案不能冒称个性化
+      }
     }
     if (habitualId != null && habitualId !== primaryId) {
       const hp = buildPick(byId.get(habitualId)!, ctx, bias.get(habitualId));
@@ -155,6 +159,7 @@ export function useNudges(ctx: Context | null, rec: RecResult | null): Nudge[] {
           habitual: byId.get(habitualId)!,
           better,
           reason: hp.risks[0] || "今天的天气不太适合它",
+          basis,
         });
       }
     }
