@@ -29,9 +29,9 @@ export function FeedbackBar({ perfumeId, ctx }: { perfumeId: number; ctx: Contex
   }
 
   return (
-    <div className="border-t border-line pt-5">
+    <div className="card px-5 py-4">
       {done ? (
-        <p className="serif animate-fade-in text-[0.95rem] text-ink-soft">{done}</p>
+        <p className="serif animate-fade-in text-[0.95rem] font-medium text-ink-soft">{done}</p>
       ) : (
         <>
           <Eyebrow>今天，刚好吗</Eyebrow>

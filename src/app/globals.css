@@ -1,80 +1,80 @@
 @import "tailwindcss";
 
 /* ─────────────────────────────────────────────────────────────
-   氛寸 · 设计系统 v4「香誌 / 夜航」
-   编辑感：中文思源宋体主嗓音 · 高对比 · 杂志报头/规则线/编号 · 香槟金点睛
-   白天=浅色（香誌），入夜=深色三色（夜航），按真实时段自动切换
+   氛寸 · 设计系统 v5「香誌 / 夜航」高对比卡片版
+   中文思源宋体主嗓音 · 高对比深色文字 · 圆角阴影卡片明显区隔 · 香槟金点睛
+   白天=浅色，入夜=深色三色，按真实时段自动切换
    ───────────────────────────────────────────────────────────── */
 @theme {
-  /* 白天（浅色 · 香誌）—— 中性暖白，不发黄；近黑墨，高对比 */
-  --color-paper: #f3f0e8;
-  --color-paper-deep: #ebe7db;
-  --color-surface: #faf8f2;
-  --color-sunken: #e9e3d6;
+  /* 白天 —— 底色略深的暖白，卡片近白，明度差大 → 卡片浮起 */
+  --color-paper: #eae4d6;
+  --color-paper-deep: #e0dac9;
+  --color-surface: #fdfbf6;
+  --color-sunken: #e7e1d1;
 
-  --color-ink: #17130c;          /* 近黑（主标题/正文，高对比） */
-  --color-ink-soft: #48413600;   /* 占位，见下修正 */
-  --color-ink-faint: #8c8474;
-  --color-line: #d8d2c3;
-  --color-line-strong: #c6bda9;
+  --color-ink: #13100a;          /* 近黑（主标题） */
+  --color-ink-soft: #2e2819;     /* 深墨（正文，强对比） */
+  --color-ink-faint: #625944;    /* 说明文字（也够深，不发浅） */
+  --color-line: #dcd5c3;
+  --color-line-strong: #c6bda6;
 
-  --color-brand: #2f4a3b;        /* 深墨绿（数据条等极少用） */
-  --color-brand-soft: #6d8a78;
-  --color-brand-wash: #e7ede7;
+  --color-brand: #2c4638;
+  --color-brand-soft: #5f7d6b;
+  --color-brand-wash: #e5ebe3;
 
-  --color-accent: #9a7b3f;       /* 香槟金（浅色版偏深，保证可读） */
-  --color-accent-soft: #c8ad6f;
-  --color-warn: #a6693a;
-  --color-warn-wash: #efe6d6;
+  --color-accent: #8c6a26;       /* 香槟金（浅色版偏深，够醒目） */
+  --color-accent-soft: #b39351;
+  --color-warn: #9c5a2c;
+  --color-warn-wash: #efe3d0;
 
   /* 字体 */
   --font-serif: var(--font-noto-serif-sc), "Songti SC", "Source Han Serif SC",
-    "Source Han Serif CN", "STSong", serif;                 /* 中文主嗓音 */
-  --font-display: var(--font-fraunces), Georgia, serif;      /* 英文/数字/斜体 */
+    "Source Han Serif CN", "STSong", serif;
+  --font-display: var(--font-fraunces), Georgia, serif;
   --font-sans: "PingFang SC", "Microsoft YaHei", "HarmonyOS Sans SC",
     "Source Han Sans SC", system-ui, -apple-system, "Segoe UI", sans-serif;
 
-  --radius-card: 4px;
-  --radius-lg: 3px;
-  --radius-md: 2px;
+  --radius-card: 16px;
+  --radius-lg: 11px;
+  --radius-md: 8px;
   --radius-pill: 999px;
 
-  --shadow-card: none;
-  --shadow-float: 0 2px 8px rgba(20, 16, 10, 0.10), 0 24px 60px -24px rgba(20, 16, 10, 0.34);
+  --shadow-card: 0 1px 2px rgba(24, 18, 10, 0.06), 0 16px 34px -14px rgba(24, 18, 10, 0.24);
+  --shadow-float: 0 3px 10px rgba(20, 16, 10, 0.14), 0 30px 66px -22px rgba(20, 16, 10, 0.42);
 
   --ease-out-soft: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-/* 修正 ink-soft（@theme 里带 alpha 占位不便，单独给准值） */
 :root {
-  --color-ink-soft: #4a4336;
   color-scheme: light;
-  --aura-1: rgba(154, 123, 63, 0.07);
-  --aura-2: rgba(47, 74, 59, 0.05);
+  --aura-1: rgba(140, 106, 38, 0.06);
+  --aura-2: rgba(44, 70, 56, 0.045);
 }
-html[data-weather="cold"] { --aura-1: rgba(120, 150, 170, 0.09); --aura-2: rgba(90, 120, 150, 0.06); }
-html[data-weather="hot_humid"] { --aura-1: rgba(190, 150, 80, 0.09); --aura-2: rgba(90, 130, 90, 0.06); }
+html[data-weather="cold"] { --aura-1: rgba(120, 150, 170, 0.08); --aura-2: rgba(90, 120, 150, 0.05); }
+html[data-weather="hot_humid"] { --aura-1: rgba(185, 145, 75, 0.08); --aura-2: rgba(90, 130, 90, 0.05); }
 
-/* 入夜（深色 · 夜航）—— 墨黑 + 奶白 + 香槟金三色 */
+/* 入夜 —— 墨黑底 + 更亮奶白文字 + 香槟金；卡面抬亮 + 阴影，明显区隔 */
 html[data-theme="night"] {
   color-scheme: dark;
-  --color-paper: #16130e;
-  --color-paper-deep: #1e1a13;
-  --color-surface: #1e1a13;
-  --color-sunken: #221f18;
-  --color-ink: #efe7d7;          /* 奶白 */
-  --color-ink-soft: #c7bda9;
-  --color-ink-faint: #8a8071;
-  --color-line: #332d22;
-  --color-line-strong: #473f2f;
-  --color-brand: #8bab90;
-  --color-brand-soft: #9bb6a3;
-  --color-brand-wash: #22291f;
-  --color-accent: #d8b46a;       /* 香槟金 */
-  --color-accent-soft: #b9985a;
-  --color-warn: #c99152;
-  --color-warn-wash: #2a241c;
-  --aura-1: rgba(216, 180, 106, 0.16);
+  --color-paper: #141109;
+  --color-paper-deep: #1b1710;
+  --color-surface: #221d14;      /* 抬亮的卡面 */
+  --color-sunken: #2a2418;
+  --color-ink: #f5eddd;          /* 更亮的奶白 */
+  --color-ink-soft: #ddd2bb;     /* 强对比正文 */
+  --color-ink-faint: #a3987f;
+  --color-line: #362f21;
+  --color-line-strong: #4c4331;
+  --color-brand: #8fb096;
+  --color-brand-soft: #a0bba8;
+  --color-brand-wash: #24291d;
+  --color-accent: #dcb96e;
+  --color-accent-soft: #c1a160;
+  --color-warn: #cf9455;
+  --color-warn-wash: #2b2418;
+  --shadow-card: 0 1px 2px rgba(0, 0, 0, 0.4), 0 18px 40px -16px rgba(0, 0, 0, 0.62);
+  --shadow-float: 0 4px 14px rgba(0, 0, 0, 0.5), 0 34px 70px -24px rgba(0, 0, 0, 0.72);
+  --aura-1: rgba(216, 180, 106, 0.17);
   --aura-2: rgba(120, 150, 130, 0.08);
 }
 
@@ -84,102 +84,101 @@ html[data-theme="night"] {
     background-color: var(--color-paper);
     color: var(--color-ink);
     font-family: var(--font-sans);
-    transition: background-color 0.6s var(--ease-out-soft), color 0.6s var(--ease-out-soft);
+    transition: background-color 0.5s var(--ease-out-soft), color 0.5s var(--ease-out-soft);
   }
-  /* 天气/时间成光 —— 右上暖辉、左下凉光，固定底层 */
   body::before {
     content: "";
     position: fixed; inset: 0; z-index: -2; pointer-events: none;
     background-image:
       radial-gradient(560px 400px at 86% -8%, var(--aura-1), transparent 60%),
       radial-gradient(480px 420px at -12% 110%, var(--aura-2), transparent 58%);
-    transition: background-image 0.6s var(--ease-out-soft);
+    transition: background-image 0.5s var(--ease-out-soft);
   }
-  /* 极淡纸纹颗粒 */
   body::after {
     content: "";
-    position: fixed; inset: 0; z-index: -1; pointer-events: none; opacity: 0.035;
+    position: fixed; inset: 0; z-index: -1; pointer-events: none; opacity: 0.03;
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
   }
   .tnum { font-family: var(--font-display); font-variant-numeric: tabular-nums; font-feature-settings: "tnum" 1; }
-  ::selection { background: rgba(154, 123, 63, 0.20); }
+  ::selection { background: rgba(140, 106, 38, 0.22); }
 }
 
 @layer components {
-  /* 中文衬线主嗓音 */
   .serif { font-family: var(--font-serif); }
-  /* 英文/数字衬线 */
   .disp { font-family: var(--font-display); }
-  /* 英文斜体（配香名/副名），金色 */
   .en-italic { font-family: var(--font-display); font-style: italic; color: var(--color-accent); }
 
-  /* 眉标：Fraunces 大写、宽字距、金色 */
-  .eyebrow {
-    font-family: var(--font-display);
-    letter-spacing: 0.26em;
-    text-transform: uppercase;
-    font-size: 0.64rem;
-    color: var(--color-accent);
-    font-weight: 500;
-  }
-  /* 中性眉标（灰） */
-  .eyebrow-mute { color: var(--color-ink-faint); }
-
-  /* 分节报头：文字 + 规则线 */
-  .sec-rule { height: 1px; background: var(--color-line); }
-  .rule-ink { height: 1px; background: var(--color-ink); opacity: 0.85; }
-
-  /* 编辑式弱卡（几乎无框，仅极淡面 + 发丝线） */
-  .panel {
+  /* 圆角阴影卡片 —— 明显区隔 */
+  .card {
     background-color: var(--color-surface);
     border: 1px solid var(--color-line);
     border-radius: var(--radius-card);
+    box-shadow: var(--shadow-card);
   }
+  .panel {
+    background-color: var(--color-surface);
+    border: 1px solid var(--color-line);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-card);
+  }
+
+  /* 眉标：Fraunces 大写、宽字距、金色（浅色版更深，够醒目） */
+  .eyebrow {
+    font-family: var(--font-display);
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    font-size: 0.64rem;
+    color: var(--color-accent);
+    font-weight: 600;
+  }
+  .eyebrow-mute { color: var(--color-ink-faint); font-weight: 500; }
 
   /* 主按钮：白天=墨块，入夜=金渐变 */
   .btn-primary {
     background: var(--color-ink);
     color: var(--color-paper);
     font-family: var(--font-serif);
+    font-weight: 600;
     letter-spacing: 0.14em;
     border-radius: var(--radius-lg);
     transition: opacity 0.2s var(--ease-out-soft);
   }
   .btn-primary:hover { opacity: 0.9; }
   html[data-theme="night"] .btn-primary {
-    background: linear-gradient(180deg, #d8b46a, #b9985a);
-    color: #16130e;
+    background: linear-gradient(180deg, #dcb96e, #bd9a55);
+    color: #141109;
   }
   .btn-ghost {
     border: 1px solid var(--color-line-strong);
     color: var(--color-ink-soft);
+    font-weight: 500;
     border-radius: var(--radius-lg);
     transition: background-color 0.2s var(--ease-out-soft);
   }
   .btn-ghost:hover { background: var(--color-sunken); }
 
-  /* 场景 chip（编辑式：细边、选中=描金下划线感） */
+  /* 场景 chip */
   .chip {
     border-radius: var(--radius-pill);
     border: 1px solid var(--color-line-strong);
-    color: var(--color-ink-faint);
+    color: var(--color-ink-soft);
     background: transparent;
+    font-weight: 500;
     transition: all 0.2s var(--ease-out-soft);
   }
-  .chip:hover { color: var(--color-ink-soft); }
+  .chip:hover { color: var(--color-ink); border-color: var(--color-accent-soft); }
   .chip[data-active="true"] {
     background: var(--color-ink);
     border-color: var(--color-ink);
-    color: var(--color-paper);
+    color: var(--color-surface);
   }
   html[data-theme="night"] .chip[data-active="true"] {
     background: var(--color-accent);
     border-color: var(--color-accent);
-    color: #16130e;
+    color: #141109;
   }
 }
 
-/* 动效：入场 / 数据条生长 / 换瓶淡入 */
 @keyframes fc-fade-up { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 @keyframes fc-grow { from { transform: scaleX(0); } to { transform: scaleX(1); } }
 @keyframes fc-fade-in { from { opacity: 0; } to { opacity: 1; } }

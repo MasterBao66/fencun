@@ -56,7 +56,7 @@ export function RecommendationCard({
   const seasonZh = ctx.season === "summer" ? "夏" : ctx.season === "winter" ? "冬" : ctx.season === "spring" ? "春" : "秋";
 
   return (
-    <article key={p.id} className="animate-fade-up">
+    <article key={p.id} className="card animate-fade-up p-6">
       {/* 眉标 */}
       <div className="flex items-center justify-between">
         <Eyebrow>
@@ -86,9 +86,9 @@ export function RecommendationCard({
       </p>
 
       {/* AI 解读 —— 金边引文 */}
-      <div className="mt-5 border-l pl-4" style={{ borderColor: "var(--color-accent-soft)" }}>
+      <div className="mt-5 border-l-2 pl-4" style={{ borderColor: "var(--color-accent)" }}>
         <p
-          className={`serif text-[0.98rem] leading-[1.9] text-ink-soft transition-opacity duration-300 ${
+          className={`serif text-[1rem] font-medium leading-[1.85] text-ink-soft transition-opacity duration-300 ${
             explainLoading ? "opacity-55" : "opacity-100"
           }`}
         >

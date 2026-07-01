@@ -39,8 +39,8 @@ export default function LibraryPage() {
           <div className="h-32 animate-pulse bg-sunken/50" />
         </div>
       ) : lib.length === 0 ? (
-        <div className="border-y border-line py-14 text-center">
-          <p className="serif text-[0.95rem] leading-relaxed text-ink-soft">
+        <div className="card px-6 py-12 text-center">
+          <p className="serif text-[0.95rem] font-medium leading-relaxed text-ink-soft">
             香柜还空着。在上面搜一搜你拥有的香水——
             <br />
             可以搜品牌（如 香奈儿 / Chanel）、香名，或香调（如 玫瑰、木质）。

@@ -3,7 +3,7 @@ import Link from "next/link";
 
 export function EmptyShelf() {
   return (
-    <div className="animate-fade-up flex flex-col items-center gap-6 border-y border-line py-16 text-center">
+    <div className="card animate-fade-up flex flex-col items-center gap-6 px-6 py-14 text-center">
       <svg width="44" height="54" viewBox="0 0 46 56" fill="none">
         <path
           d="M18 4h10v7l3.5 3c1.6 1.4 2.5 3.4 2.5 5.5V47a5 5 0 0 1-5 5H17a5 5 0 0 1-5-5V19.5c0-2.1.9-4.1 2.5-5.5L18 11V4Z"

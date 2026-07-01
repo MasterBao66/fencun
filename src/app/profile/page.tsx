@@ -35,51 +35,56 @@ export default function ProfilePage() {
   };
 
   return (
-    <div className="flex flex-col gap-8">
-      <header>
+    <div className="flex flex-col gap-5">
+      <header className="pb-1">
         <Eyebrow>我的 · Me</Eyebrow>
         <h1 className="serif mt-1.5 text-[1.7rem] font-bold text-ink">我的分寸</h1>
       </header>
 
       {/* 统计 */}
-      <div className="flex border-y-2 border-y-ink">
-        <div className="flex-1 py-5">
+      <div className="grid grid-cols-2 gap-3">
+        <div className="card px-5 py-4">
           <span className="eyebrow eyebrow-mute">在柜香水</span>
-          <div className="disp mt-2 text-[2.6rem] font-light leading-none text-ink">
+          <div className="disp mt-2 text-[2.4rem] font-normal leading-none text-ink">
             {hydrated ? lib.length : "—"}
           </div>
         </div>
-        <div className="flex-1 border-l border-line py-5 pl-5">
+        <div className="card px-5 py-4">
           <span className="eyebrow eyebrow-mute">用香反馈</span>
-          <div className="disp mt-2 text-[2.6rem] font-light leading-none text-ink">
+          <div className="disp mt-2 text-[2.4rem] font-normal leading-none text-ink">
             {hydrated ? feedbacks.length : "—"}
           </div>
         </div>
       </div>
 
       {/* 偏好画像 */}
-      <section>
+      <div className="card px-5 py-4">
         <Eyebrow>氛寸学到的偏好</Eyebrow>
         <div className="mt-3 flex flex-col gap-2">
           {learned.map((l, i) => (
-            <p key={i} className="serif text-[0.95rem] leading-relaxed text-ink-soft">
+            <p key={i} className="serif text-[0.95rem] font-medium leading-relaxed text-ink-soft">
               {l}
             </p>
           ))}
         </div>
-      </section>
+      </div>
 
       {/* 用香记录 */}
       {recent.length > 0 && (
-        <section>
+        <div className="card px-5 py-4">
           <Eyebrow>用香记录</Eyebrow>
-          <ul className="mt-2 flex flex-col">
+          <ul className="mt-1 flex flex-col">
             {recent.map((f, i) => {
               const p = byId.get(f.perfumeId);
               return (
-                <li key={i} className="flex items-center justify-between border-b border-line py-3">
+                <li
+                  key={i}
+                  className={`flex items-center justify-between py-3 ${
+                    i === recent.length - 1 ? "" : "border-b border-line"
+                  }`}
+                >
                   <div className="min-w-0">
-                    <span className="serif text-[0.95rem] text-ink">
+                    <span className="serif text-[0.95rem] font-semibold text-ink">
                       {p ? p.nameZh || p.name : "已移出的香水"}
                     </span>
                     <span className="disp ml-2 text-[0.7rem] tracking-wide text-ink-faint">
@@ -87,23 +92,25 @@ export default function ProfilePage() {
                       {Math.round(f.context.tempC)}°
                     </span>
                   </div>
-                  <span className="serif shrink-0 text-[0.8rem] text-accent">{RATING_ZH[f.rating]}</span>
+                  <span className="serif shrink-0 text-[0.82rem] font-semibold text-accent">
+                    {RATING_ZH[f.rating]}
+                  </span>
                 </li>
               );
             })}
           </ul>
-        </section>
+        </div>
       )}
 
       {/* 关于 */}
-      <section className="border-t border-line pt-5">
+      <div className="card px-5 py-4">
         <Eyebrow>关于氛寸的分寸</Eyebrow>
-        <p className="serif mt-2.5 text-[0.86rem] leading-relaxed text-ink-soft">
+        <p className="serif mt-2.5 text-[0.86rem] font-medium leading-relaxed text-ink-soft">
           推荐与用法来自约 3.6 万款香水的真实社区投票数据（扩散、留香、四季、日夜、香调）。
           氛寸刻意不给「留香 6.2 小时」这类伪精确数字——留香、喷量、社交距离一律用区间与档位，
           因为无法验证的精确，会摧毁信任。
         </p>
-      </section>
+      </div>
     </div>
   );
 }

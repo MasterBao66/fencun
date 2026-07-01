@@ -50,7 +50,7 @@ export function Stat({ label, value, sub }: { label: string; value: ReactNode; s
   return (
     <div className="flex flex-col items-center gap-2 text-center">
       <span className="eyebrow eyebrow-mute !text-[0.58rem]">{label}</span>
-      <span className="serif text-[1.15rem] font-semibold leading-none text-ink">{value}</span>
+      <span className="serif text-[1.15rem] font-bold leading-none text-ink">{value}</span>
       {sub && <span className="text-[0.68rem] leading-tight text-ink-faint">{sub}</span>}
     </div>
   );

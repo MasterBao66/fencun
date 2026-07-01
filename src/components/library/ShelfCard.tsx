@@ -13,11 +13,11 @@ export function ShelfCard({
 }) {
   const np = nameParts(p);
   return (
-    <div className="panel relative flex flex-col p-4">
+    <div className="card relative flex flex-col p-4">
       {dusty && (
         <span className="eyebrow absolute right-3 top-3.5 !text-[0.55rem] !text-warn">很久没用</span>
       )}
-      <div className={`truncate pr-14 text-[1.08rem] text-ink ${np.primaryIsZh ? "serif font-semibold" : "disp"}`}>
+      <div className={`truncate pr-14 text-[1.08rem] text-ink ${np.primaryIsZh ? "serif font-bold" : "disp font-semibold"}`}>
         {np.primary}
       </div>
       <div className="mt-1 truncate text-[0.72rem] text-ink-faint">
