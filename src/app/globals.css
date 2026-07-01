@@ -1,74 +1,82 @@
 @import "tailwindcss";
 
 /* ─────────────────────────────────────────────────────────────
-   氛寸 · 设计系统 v3 —— 编辑感香誌
-   宋体主嗓音 · 高对比暖调 · 杂志版式（报头/日期栏/编号/规则线）
+   氛寸 · 设计系统（Design Tokens）
+   基调：东方编辑感的克制奢华 —— 宣纸暖白 / 墨绿 / 香槟金，
+   衬线配英文与数字、留白、近乎无形的阴影、克制的动效。
    ───────────────────────────────────────────────────────────── */
 @theme {
-  /* 色彩 —— 高对比暖调（白天，可被 [data-theme] 覆盖） */
-  --color-paper: #f2ead6;        /* 暖奶白（页面底） */
-  --color-paper-deep: #e9dfc7;   /* 略深分区 */
-  --color-surface: #f7f0dd;      /* 卡片面 */
-  --color-sunken: #e6dcc4;       /* 凹陷/输入底 */
+  /* 色彩 —— 暖中性底 + 单一沉静主色 + 低饱和点缀（白天主题，可被 [data-theme] 覆盖） */
+  --color-paper: #f4f0e9;        /* 宣纸暖白（页面底） */
+  --color-paper-deep: #ece6db;   /* 略深的底，用于分区 */
+  --color-surface: #fffdf9;      /* 卡片面 */
+  --color-sunken: #efe9df;       /* 凹陷/输入底 */
 
-  --color-ink: #16120c;          /* 近黑暖调（主文字，高对比） */
-  --color-ink-soft: #4a4133;     /* 次要文字 */
-  --color-ink-faint: #8a8069;    /* 第三级/说明 */
-  --color-line: #cdc0a2;         /* 规则线（可见） */
-  --color-line-strong: #a89a78;
+  --color-ink: #211d18;          /* 近黑暖棕（主文字） */
+  --color-ink-soft: #574f45;     /* 次要文字 */
+  --color-ink-faint: #968d7e;    /* 第三级/说明 */
+  --color-line: #e3ddd0;         /* 发丝分割线 */
+  --color-line-strong: #d4ccbc;
 
-  --color-brand: #2f473a;        /* 深松绿（稀用点缀） */
-  --color-brand-soft: #6e8a78;
-  --color-brand-wash: #e8ecdf;
+  --color-brand: #37564a;        /* 墨绿（主色） */
+  --color-brand-soft: #6e8a78;   /* 墨绿浅 */
+  --color-brand-wash: #eaf0ea;   /* 墨绿极浅底 */
 
-  --color-accent: #a5823f;       /* 暗金（编号/发丝强调） */
-  --color-accent-soft: #d8c39a;
-  --color-oxblood: #8a3e2b;      /* 氧化红（首字下沉/关键强调） */
-  --color-warn: #a85c3a;         /* 暖赭（分寸提醒） */
-  --color-warn-wash: #f0e3d2;
+  --color-accent: #bf9d57;       /* 香槟金 */
+  --color-accent-soft: #e6d4a8;
+  --color-warn: #b07d4f;         /* 暖琥珀（分寸提醒，不用刺眼红） */
+  --color-warn-wash: #f6ede2;
 
   /* 字体 */
-  --font-serif-sc: "Noto Serif SC", "Songti SC", "Source Han Serif SC", "STSong", serif;
-  --font-display: var(--font-fraunces), "Noto Serif SC", serif;
+  --font-display: var(--font-fraunces), "Songti SC", "Noto Serif SC", serif;
   --font-sans: "PingFang SC", "Microsoft YaHei", "HarmonyOS Sans SC",
     "Source Han Sans SC", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-serif-zh: "Songti SC", "STSong", "Noto Serif SC", "Source Han Serif SC", serif;
 
-  /* 圆角 —— 印刷感，低圆角 */
-  --radius-card: 6px;
-  --radius-lg: 4px;
-  --radius-md: 3px;
+  /* 圆角 */
+  --radius-card: 18px;
+  --radius-lg: 14px;
+  --radius-md: 10px;
   --radius-pill: 999px;
 
-  /* 阴影 —— 极简，主要靠规则线 */
-  --shadow-card: 0 1px 2px rgba(22, 18, 12, 0.05), 0 14px 34px -18px rgba(22, 18, 12, 0.16);
-  --shadow-float: 0 2px 6px rgba(22, 18, 12, 0.08), 0 24px 54px -22px rgba(22, 18, 12, 0.28);
+  /* 阴影 —— 几乎看不见，只留浮起感 */
+  --shadow-card: 0 1px 2px rgba(33, 29, 24, 0.04), 0 10px 30px -12px rgba(33, 29, 24, 0.12);
+  --shadow-float: 0 2px 6px rgba(33, 29, 24, 0.06), 0 20px 50px -20px rgba(33, 29, 24, 0.22);
 
+  /* 动效 */
   --ease-out-soft: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 :root {
   color-scheme: light;
+  --aura-1: rgba(194, 160, 95, 0.10);
+  --aura-2: rgba(58, 90, 71, 0.07);
 }
+/* 天气微调氛围光（叠加，仅改背景光晕色温，不动文字对比度） */
+html[data-weather="cold"] { --aura-1: rgba(120, 150, 170, 0.12); --aura-2: rgba(90, 120, 150, 0.08); }
+html[data-weather="hot_humid"] { --aura-1: rgba(200, 150, 80, 0.12); --aura-2: rgba(90, 130, 90, 0.08); }
 
-/* 入夜主题 —— 深暖夜色（天气/时间成光） */
+/* 入夜主题（由真实时段驱动，html[data-theme="night"]）—— 天气/时间成光 */
 html[data-theme="night"] {
   color-scheme: dark;
-  --color-paper: #14110c;
-  --color-paper-deep: #1b1712;
-  --color-surface: #1a1610;
-  --color-sunken: #201b14;
-  --color-ink: #f0e7d4;
-  --color-ink-soft: #bcb29c;
-  --color-ink-faint: #837a60;
-  --color-line: #342e22;
-  --color-line-strong: #4a4230;
+  --color-paper: #1c1a17;
+  --color-paper-deep: #232019;
+  --color-surface: #262219;
+  --color-sunken: #221f18;
+  --color-ink: #f3ece0;
+  --color-ink-soft: #cdc3b2;
+  --color-ink-faint: #8f8676;
+  --color-line: #332e25;
+  --color-line-strong: #403a2f;
+  --color-brand: #6e8a78;
   --color-brand-soft: #9bb6a3;
-  --color-brand-wash: #1e2419;
-  --color-accent: #c9a25a;
+  --color-brand-wash: #23291f;
+  --color-accent: #d8b46a;
   --color-accent-soft: #5a4a2a;
-  --color-oxblood: #c8735a;
-  --color-warn: #c98a58;
-  --color-warn-wash: #251d14;
+  --color-warn: #c99152;
+  --color-warn-wash: #2a241c;
+  --aura-1: rgba(216, 180, 106, 0.14);
+  --aura-2: rgba(110, 138, 120, 0.10);
 }
 
 @layer base {
@@ -82,24 +90,37 @@ html[data-theme="night"] {
     font-family: var(--font-sans);
     transition: background-color 0.6s var(--ease-out-soft), color 0.6s var(--ease-out-soft);
   }
-  /* 极淡纸纹颗粒 —— 印刷质感（无彩色光晕，避免发灰） */
+  /* 氛围光晕（随昼夜/天气变色温）作为固定底层 */
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: -2;
+    pointer-events: none;
+    background-image:
+      radial-gradient(1200px 620px at 82% -12%, var(--aura-1), transparent 62%),
+      radial-gradient(900px 520px at -12% 112%, var(--aura-2), transparent 56%);
+    transition: background-image 0.6s var(--ease-out-soft);
+  }
+  /* 极淡纸纹颗粒，制造空气感与质感（非纯色平面） */
   body::after {
     content: "";
     position: fixed;
     inset: 0;
     z-index: -1;
     pointer-events: none;
-    opacity: 0.05;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    opacity: 0.04;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
   }
-  /* 数字/拉丁用 Fraunces、等宽对齐 */
+  /* 数字用衬线、等宽对齐，更精致 */
   .tnum {
     font-family: var(--font-display);
     font-feature-settings: "tnum" 1, "ss01" 1;
     font-variant-numeric: tabular-nums;
   }
-  .serif { font-family: var(--font-serif-sc); }
-  ::selection { background: rgba(138, 62, 43, 0.18); }
+  ::selection {
+    background: rgba(58, 90, 71, 0.16);
+  }
 }
 
 @layer components {
@@ -109,18 +130,12 @@ html[data-theme="night"] {
     border-radius: var(--radius-card);
     box-shadow: var(--shadow-card);
   }
-  /* Fraunces 大写小标签 */
-  .eyebrow {
-    font-family: var(--font-display);
-    letter-spacing: 0.3em;
-    text-transform: uppercase;
-    font-size: 0.62rem;
-    color: var(--color-ink-faint);
-    font-weight: 500;
+  .hairline {
+    border-color: var(--color-line);
   }
-  /* 场景 chip —— 编辑式方角 */
+  /* 胶囊标签 */
   .chip {
-    border-radius: var(--radius-md);
+    border-radius: var(--radius-pill);
     border: 1px solid var(--color-line-strong);
     color: var(--color-ink-soft);
     background: transparent;
@@ -131,28 +146,47 @@ html[data-theme="night"] {
     border-color: var(--color-ink);
     color: var(--color-paper);
   }
-  /* 首字下沉 —— 杂志正文 */
-  .dropcap::first-letter {
+  /* 细体大写英文小标签 */
+  .eyebrow {
     font-family: var(--font-display);
-    font-weight: 400;
-    font-size: 2.4em;
-    line-height: 0.82;
-    float: left;
-    margin: 0.08em 0.12em 0 0;
-    color: var(--color-oxblood);
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    font-size: 0.66rem;
+    color: var(--color-ink-faint);
+    font-weight: 500;
   }
-  /* 强规则线（ink） */
-  .rule-ink { border-color: var(--color-ink); }
 }
 
-/* ── 动效：克制 ── */
-@keyframes fc-fade-up { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-@keyframes fc-fade-in { from { opacity: 0; } to { opacity: 1; } }
-@keyframes fc-grow { from { transform: scaleX(0); } to { transform: scaleX(1); } }
-.animate-fade-up { animation: fc-fade-up 0.6s var(--ease-out-soft) both; }
-.animate-fade-in { animation: fc-fade-in 0.5s var(--ease-out-soft) both; }
-.bar-grow { transform-origin: left center; animation: fc-grow 0.8s var(--ease-out-soft) both; }
+/* ── 动效：仅用于卡片入场 / 证据条生长 / 换瓶重排 ── */
+@keyframes fc-fade-up {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes fc-grow {
+  from { transform: scaleX(0); }
+  to   { transform: scaleX(1); }
+}
+@keyframes fc-fade-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+.animate-fade-up {
+  animation: fc-fade-up 0.6s var(--ease-out-soft) both;
+}
+.animate-fade-in {
+  animation: fc-fade-in 0.5s var(--ease-out-soft) both;
+}
+.bar-grow {
+  transform-origin: left center;
+  animation: fc-grow 0.7s var(--ease-out-soft) both;
+}
+/* 香气球：缓慢呼吸（签名动效） */
+@keyframes fc-breathe {
+  0%, 100% { transform: scale(1); opacity: 0.95; }
+  50% { transform: scale(1.06); opacity: 1; }
+}
+.aura-breathe { animation: fc-breathe 6s ease-in-out infinite; }
 
 @media (prefers-reduced-motion: reduce) {
-  .animate-fade-up, .animate-fade-in, .bar-grow { animation: none; }
+  .animate-fade-up, .animate-fade-in, .bar-grow, .aura-breathe { animation: none; }
 }

@@ -23,7 +23,7 @@ export default function LibraryPage() {
     <div className="flex flex-col gap-5">
       <header className="px-1">
         <Eyebrow>香柜 · Shelf</Eyebrow>
-        <h1 className="serif mt-1.5 text-[1.9rem] font-medium tracking-tight text-ink">我的香柜</h1>
+        <h1 className="mt-1 text-2xl font-medium tracking-tight text-ink">我的香柜</h1>
         <p className="mt-1 text-sm text-ink-faint">
           {lib.length > 0 ? `${lib.length} 瓶在柜` : "搜名字，一点就入柜"}
         </p>

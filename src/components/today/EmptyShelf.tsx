@@ -15,7 +15,7 @@ export function EmptyShelf() {
         <rect x="19" y="0.5" width="8" height="4" rx="1" stroke="var(--color-brand-soft)" strokeWidth="1.4" />
       </svg>
       <div>
-        <h3 className="serif text-[1.4rem] font-medium text-ink">你的香柜还是空的</h3>
+        <h3 className="font-display text-xl text-ink">你的香柜还是空的</h3>
         <p className="mx-auto mt-2 max-w-xs text-sm leading-relaxed text-ink-soft">
           先把你拥有的香水放进来。氛寸会在每一个此刻，
           从中告诉你今天该喷哪一瓶、怎么喷得恰到好处。
