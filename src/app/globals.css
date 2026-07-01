@@ -12,20 +12,20 @@
   --color-surface: #fdfbf6;
   --color-sunken: #e7e1d1;
 
-  --color-ink: #13100a;          /* 近黑（主标题） */
-  --color-ink-soft: #2e2819;     /* 深墨（正文，强对比） */
-  --color-ink-faint: #625944;    /* 说明文字（也够深，不发浅） */
-  --color-line: #dcd5c3;
-  --color-line-strong: #c6bda6;
+  --color-ink: #0f0c06;          /* 近黑（主标题，压到底） */
+  --color-ink-soft: #1c180e;     /* 深墨（正文，强对比） */
+  --color-ink-faint: #453d2b;    /* 说明文字（加深，不发浅） */
+  --color-line: #d9d1bf;
+  --color-line-strong: #c1b8a0;
 
   --color-brand: #2c4638;
   --color-brand-soft: #5f7d6b;
   --color-brand-wash: #e5ebe3;
 
-  --color-accent: #8c6a26;       /* 香槟金（浅色版偏深，够醒目） */
-  --color-accent-soft: #b39351;
-  --color-warn: #9c5a2c;
-  --color-warn-wash: #efe3d0;
+  --color-accent: #7f5f1e;       /* 香槟金（浅色版更深，够醒目） */
+  --color-accent-soft: #a98c48;
+  --color-warn: #925026;
+  --color-warn-wash: #eee1cc;
 
   /* 字体 */
   --font-serif: var(--font-noto-serif-sc), "Songti SC", "Source Han Serif SC",
@@ -53,29 +53,29 @@
 html[data-weather="cold"] { --aura-1: rgba(120, 150, 170, 0.08); --aura-2: rgba(90, 120, 150, 0.05); }
 html[data-weather="hot_humid"] { --aura-1: rgba(185, 145, 75, 0.08); --aura-2: rgba(90, 130, 90, 0.05); }
 
-/* 入夜 —— 墨黑底 + 更亮奶白文字 + 香槟金；卡面抬亮 + 阴影，明显区隔 */
+/* 入夜 —— 中性墨黑（去绿去黄）+ 近白文字 + 香槟金点睛；卡面明显抬亮 */
 html[data-theme="night"] {
   color-scheme: dark;
-  --color-paper: #141109;
-  --color-paper-deep: #1b1710;
-  --color-surface: #221d14;      /* 抬亮的卡面 */
-  --color-sunken: #2a2418;
-  --color-ink: #f5eddd;          /* 更亮的奶白 */
-  --color-ink-soft: #ddd2bb;     /* 强对比正文 */
-  --color-ink-faint: #a3987f;
-  --color-line: #362f21;
-  --color-line-strong: #4c4331;
-  --color-brand: #8fb096;
-  --color-brand-soft: #a0bba8;
-  --color-brand-wash: #24291d;
-  --color-accent: #dcb96e;
-  --color-accent-soft: #c1a160;
-  --color-warn: #cf9455;
-  --color-warn-wash: #2b2418;
-  --shadow-card: 0 1px 2px rgba(0, 0, 0, 0.4), 0 18px 40px -16px rgba(0, 0, 0, 0.62);
-  --shadow-float: 0 4px 14px rgba(0, 0, 0, 0.5), 0 34px 70px -24px rgba(0, 0, 0, 0.72);
-  --aura-1: rgba(216, 180, 106, 0.17);
-  --aura-2: rgba(120, 150, 130, 0.08);
+  --color-paper: #131315;        /* 中性墨黑（极低彩度，不发绿黄） */
+  --color-paper-deep: #191a1c;
+  --color-surface: #26262a;      /* 明显抬亮的中性卡面 */
+  --color-sunken: #2f2f34;
+  --color-ink: #f7f6f3;          /* 近白（去黄，最高对比） */
+  --color-ink-soft: #e4e2dc;     /* 亮正文（强对比，不发浅） */
+  --color-ink-faint: #a6a49c;    /* 中性灰说明 */
+  --color-line: #34343a;
+  --color-line-strong: #4a4a52;
+  --color-brand: #b7b2a4;        /* 去绿，改中性暖灰 */
+  --color-brand-soft: #cbc6ba;
+  --color-brand-wash: #2a2a2f;
+  --color-accent: #dcb974;       /* 香槟金（唯一暖色点睛） */
+  --color-accent-soft: #c2a45f;
+  --color-warn: #d3985a;
+  --color-warn-wash: #2c2a26;
+  --shadow-card: 0 1px 2px rgba(0, 0, 0, 0.5), 0 20px 42px -16px rgba(0, 0, 0, 0.7);
+  --shadow-float: 0 4px 16px rgba(0, 0, 0, 0.6), 0 36px 74px -24px rgba(0, 0, 0, 0.8);
+  --aura-1: rgba(220, 185, 116, 0.10);
+  --aura-2: rgba(150, 150, 160, 0.04);
 }
 
 @layer base {
@@ -145,8 +145,8 @@ html[data-theme="night"] {
   }
   .btn-primary:hover { opacity: 0.9; }
   html[data-theme="night"] .btn-primary {
-    background: linear-gradient(180deg, #dcb96e, #bd9a55);
-    color: #141109;
+    background: linear-gradient(180deg, #dcb974, #c2a45f);
+    color: #131315;
   }
   .btn-ghost {
     border: 1px solid var(--color-line-strong);
@@ -175,7 +175,7 @@ html[data-theme="night"] {
   html[data-theme="night"] .chip[data-active="true"] {
     background: var(--color-accent);
     border-color: var(--color-accent);
-    color: #141109;
+    color: #131315;
   }
 }
 

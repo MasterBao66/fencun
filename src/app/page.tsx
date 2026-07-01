@@ -9,24 +9,11 @@ import {
 } from "@/lib/hooks";
 import { buildPick, aggregateBias } from "@/lib/recommend";
 import { ContextBar } from "@/components/today/ContextBar";
-import { OccasionChips } from "@/components/today/OccasionChips";
 import { RecommendationCard } from "@/components/today/RecommendationCard";
 import { AltList } from "@/components/today/AltList";
 import { FeedbackBar } from "@/components/today/FeedbackBar";
 import { ChangeBottleSheet } from "@/components/today/ChangeBottleSheet";
 import { EmptyShelf } from "@/components/today/EmptyShelf";
-
-function dateLabel() {
-  try {
-    return new Intl.DateTimeFormat("zh-CN", {
-      month: "long",
-      day: "numeric",
-      weekday: "long",
-    }).format(new Date());
-  } catch {
-    return "今天";
-  }
-}
 
 export default function TodayPage() {
   const ctx = useResolvedContext();
@@ -59,16 +46,8 @@ export default function TodayPage() {
   const explain = useExplain(activePick, ctx);
 
   return (
-    <div className="flex flex-col gap-6">
-      <div className="flex items-baseline justify-between">
-        <span className="serif text-[1.05rem] font-semibold text-ink">
-          {ctx?.daypart === "night" ? "今夜" : "今日"}
-        </span>
-        <span className="disp text-[0.72rem] tracking-[0.12em] text-ink-faint">{dateLabel()}</span>
-      </div>
-
+    <div className="flex flex-col gap-5">
       <ContextBar ctx={ctx} />
-      <OccasionChips />
 
       {!hydrated ? (
         <div className="h-56 animate-pulse bg-sunken/50" />
