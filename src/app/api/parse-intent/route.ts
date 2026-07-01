@@ -2,6 +2,7 @@
 // 这是氛寸的差异化：真正理解"去前任婚礼""第一次见投资人"的语义，而非硬套标签
 import { NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
+import { allow, clientKey } from "@/lib/ratelimit";
 
 export const runtime = "nodejs";
 
@@ -56,9 +57,13 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "bad_input" }, { status: 400 });
   }
   if (!text) return NextResponse.json({ error: "empty" }, { status: 400 });
+  if (text.length > 120) text = text.slice(0, 120); // 输入上限：防超长/成本/注入面
 
   const fallback = { ...heuristic(text), source: "heuristic" as const };
-  if (!KEY) return NextResponse.json(fallback);
+  // 无 key 或被限流 → 关键词启发式（不打 DeepSeek），仍能给出可用结构
+  if (!KEY || !allow(`parse:${clientKey(req)}`, 8, 10_000)) {
+    return NextResponse.json(fallback);
+  }
 
   try {
     const res = await fetch(`${BASE}/chat/completions`, {

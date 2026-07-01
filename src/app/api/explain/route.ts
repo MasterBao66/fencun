@@ -1,6 +1,7 @@
 // 用香解释：DeepSeek 仅把"规则已算好的事实"翻译成有温度的人话。
 // 决策权在规则引擎，这里只负责表达；严禁编造、严禁伪精确数字；失败降级为模板。
 import { NextRequest, NextResponse } from "next/server";
+import { allow, clientKey } from "@/lib/ratelimit";
 
 export const runtime = "nodejs";
 
@@ -71,7 +72,10 @@ export async function POST(req: NextRequest) {
   }
 
   const fallback = template(input);
-  if (!KEY) return NextResponse.json({ text: fallback, source: "template" });
+  // 无 key 或被限流 → 直接返回免费的规则模板（不打 DeepSeek），UX 不断、成本可控
+  if (!KEY || !allow(`explain:${clientKey(req)}`, 15, 10_000)) {
+    return NextResponse.json({ text: fallback, source: "template" });
+  }
 
   const userMsg = `事实如下（JSON）：\n${JSON.stringify(
     {
