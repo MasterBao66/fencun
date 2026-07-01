@@ -85,20 +85,21 @@ export function ContextBar({ ctx }: { ctx: Context | null }) {
             </svg>
           </button>
 
-          <div className="mt-3 flex items-baseline justify-between gap-3">
+          <div className="mt-3 flex items-center justify-between gap-3">
             <div className="serif min-w-0 flex-1 truncate text-[1.5rem] font-bold text-ink">
               {weatherGreeting(ctx)}
             </div>
-            <div className="serif shrink-0 whitespace-nowrap text-ink">
-              <span className="text-[1.05rem] text-ink-soft">{ctx.weatherText}</span>
-              <span className="mx-1.5 text-ink-faint">·</span>
-              <span className="disp text-[2.3rem] font-normal">
+            {/* 阴 · 30° —— 整体垂直居中对齐，中点落在数字正中，不再吊在左下角 */}
+            <div className="serif inline-flex shrink-0 items-center gap-1.5 whitespace-nowrap text-ink">
+              <span className="text-[1.15rem] text-ink-soft">{ctx.weatherText}</span>
+              <span className="text-[1rem] text-ink-faint">·</span>
+              <span className="disp text-[1.95rem] font-normal leading-none">
                 {Math.round(ctx.tempC)}
-                <span className="text-[0.9rem] text-accent">°</span>
+                <span className="text-[0.62em] text-accent">°</span>
               </span>
             </div>
           </div>
-          <p className="mt-2.5 text-[0.76rem] text-ink-faint">
+          <p className="mt-3 text-[0.76rem] text-ink-faint">
             湿度 {Math.round(ctx.humidity)}% · 体感{FEEL_ZH[ctx.feel]}
           </p>
           {editing && <CityForm onDone={() => setEditing(false)} />}

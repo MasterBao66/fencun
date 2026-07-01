@@ -93,7 +93,6 @@ export function RecommendationCard({
       {/* AI 解读 —— 金边引文 */}
       <div className="mt-5 border-l-2 pl-4" style={{ borderColor: "var(--color-accent)" }}>
         <p
-          style={{ textIndent: "1em" }}
           className={`serif text-[1rem] font-medium leading-[1.85] text-ink-soft transition-opacity duration-300 ${
             explainLoading ? "opacity-55" : "opacity-100"
           }`}
