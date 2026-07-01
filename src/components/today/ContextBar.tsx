@@ -3,7 +3,8 @@ import { useState } from "react";
 import { useApp } from "@/components/AppProvider";
 import { Eyebrow } from "@/components/ui";
 import { OccasionChips } from "@/components/today/OccasionChips";
-import { FEEL_ZH, SEASON_ZH } from "@/lib/season";
+import { FEEL_ZH } from "@/lib/season";
+import { weatherGreeting } from "@/lib/greeting";
 import type { Context } from "@/lib/types";
 
 function dateLabel() {
@@ -78,23 +79,25 @@ export function ContextBar({ ctx }: { ctx: Context | null }) {
                 aria-label="切换城市"
               >
                 <LocationPin />
-                <span className="serif text-[1.05rem] font-semibold text-ink transition-colors group-hover:text-accent">
+                <span className="serif text-[0.98rem] font-semibold text-ink transition-colors group-hover:text-accent">
                   {ctx.city}
                 </span>
                 <svg width="11" height="11" viewBox="0 0 24 24" className={`text-ink-faint transition-transform ${editing ? "rotate-180" : ""}`}>
                   <path d="M6 9l6 6 6-6" stroke="currentColor" strokeWidth="2.2" fill="none" strokeLinecap="round" />
                 </svg>
               </button>
-              <div className="serif mt-2 text-[1.15rem] font-semibold text-ink">{ctx.weatherText}</div>
-              <p className="mt-1.5 text-[0.76rem] text-ink-faint">
-                湿度 {Math.round(ctx.humidity)}% · 体感{FEEL_ZH[ctx.feel]} ·{" "}
-                {ctx.daypart === "day" ? "白天" : "夜晚"} · {SEASON_ZH[ctx.season]}季
+              <div className="serif mt-2.5 text-[1.4rem] font-bold leading-tight text-ink">
+                {weatherGreeting(ctx)}
+              </div>
+              <p className="mt-2 text-[0.76rem] text-ink-faint">
+                湿度 {Math.round(ctx.humidity)}% · 体感{FEEL_ZH[ctx.feel]}
               </p>
             </div>
-            <div className="shrink-0 leading-none">
-              <span className="disp text-[3.6rem] font-normal leading-[0.78] text-ink">
+            <div className="shrink-0 text-right leading-none">
+              <div className="serif text-[0.86rem] text-ink-soft">{ctx.weatherText}</div>
+              <span className="disp mt-1 inline-block text-[3.2rem] font-normal leading-[0.8] text-ink">
                 {Math.round(ctx.tempC)}
-                <span className="align-top text-[1.4rem] text-accent">°</span>
+                <span className="align-top text-[1.25rem] text-accent">°</span>
               </span>
             </div>
           </div>

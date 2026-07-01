@@ -12,18 +12,18 @@
   --color-surface: #fdfbf6;
   --color-sunken: #e7e1d1;
 
-  --color-ink: #0f0c06;          /* 近黑（主标题，压到底） */
-  --color-ink-soft: #1c180e;     /* 深墨（正文，强对比） */
-  --color-ink-faint: #453d2b;    /* 说明文字（加深，不发浅） */
-  --color-line: #d9d1bf;
-  --color-line-strong: #c1b8a0;
+  --color-ink: #0d0a05;          /* 近黑（主标题） */
+  --color-ink-soft: #171308;     /* 深墨（正文，强对比） */
+  --color-ink-faint: #362f1d;    /* 说明文字（继续压深，不发浅） */
+  --color-line: #d5cdba;
+  --color-line-strong: #bcb299;
 
-  --color-brand: #2c4638;
-  --color-brand-soft: #5f7d6b;
+  --color-brand: #26402f;
+  --color-brand-soft: #567562;
   --color-brand-wash: #e5ebe3;
 
-  --color-accent: #7f5f1e;       /* 香槟金（浅色版更深，够醒目） */
-  --color-accent-soft: #a98c48;
+  --color-accent: #6d5013;       /* 香槟金（浅色版更深，够醒目） */
+  --color-accent-soft: #9a7d3a;
   --color-warn: #925026;
   --color-warn-wash: #eee1cc;
 

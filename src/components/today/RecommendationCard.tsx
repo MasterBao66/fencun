@@ -62,12 +62,17 @@ export function RecommendationCard({
         <Eyebrow>
           {isSelected ? "你选了 · Your Pick" : ctx.daypart === "night" ? "今夜一喷 · Tonight" : "今日一喷 · Today"}
         </Eyebrow>
-        {!pick.usage.suitable && (
+        {pick.verdict === "avoid" ? (
+          <span className="flex items-center gap-1.5 rounded-pill bg-warn-wash px-2.5 py-1 text-[0.68rem] font-semibold text-warn">
+            <span className="h-1.5 w-1.5 rounded-full bg-warn" />
+            今天不建议
+          </span>
+        ) : pick.verdict === "caution" ? (
           <span className="flex items-center gap-1.5 text-[0.7rem] text-warn">
             <span className="h-1.5 w-1.5 rounded-full bg-warn" />
             有一点要留意
           </span>
-        )}
+        ) : null}
       </div>
 
       {/* 香名 */}
