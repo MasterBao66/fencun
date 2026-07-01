@@ -85,24 +85,22 @@ export function ContextBar({ ctx }: { ctx: Context | null }) {
             </svg>
           </button>
 
-          <div className="mt-2.5 flex items-end justify-between gap-3">
-            <div className="min-w-0">
-              <div className="serif text-[1.5rem] font-bold leading-tight text-ink">
-                {weatherGreeting(ctx)}
-              </div>
-              {/* 下沿基线：与右侧大号温度底部对齐 */}
-              <p className="mt-2.5 text-[0.76rem] leading-none text-ink-faint">
-                湿度 {Math.round(ctx.humidity)}% · 体感{FEEL_ZH[ctx.feel]}
-              </p>
+          <div className="mt-3 flex items-baseline justify-between gap-3">
+            <div className="serif min-w-0 flex-1 truncate text-[1.5rem] font-bold text-ink">
+              {weatherGreeting(ctx)}
             </div>
-            <div className="shrink-0 text-right">
-              <div className="serif mb-1 text-[0.86rem] leading-none text-ink-soft">{ctx.weatherText}</div>
-              <span className="disp block text-[3.4rem] font-normal leading-none text-ink">
+            <div className="serif shrink-0 whitespace-nowrap text-ink">
+              <span className="text-[1.05rem] text-ink-soft">{ctx.weatherText}</span>
+              <span className="mx-1.5 text-ink-faint">·</span>
+              <span className="disp text-[2.3rem] font-normal">
                 {Math.round(ctx.tempC)}
-                <span className="text-[1.15rem] text-accent">°</span>
+                <span className="text-[0.9rem] text-accent">°</span>
               </span>
             </div>
           </div>
+          <p className="mt-2.5 text-[0.76rem] text-ink-faint">
+            湿度 {Math.round(ctx.humidity)}% · 体感{FEEL_ZH[ctx.feel]}
+          </p>
           {editing && <CityForm onDone={() => setEditing(false)} />}
         </>
       ) : locState === "locating" ? (

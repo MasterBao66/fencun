@@ -24,6 +24,7 @@
 
   --color-accent: #634913;       /* 香槟金（浅色版更深，够醒目） */
   --color-accent-soft: #8f7331;
+  --color-btn: #2c2517;          /* 按钮底：暖深棕，与文字近黑解耦，避免纯黑发丑 */
   --color-warn: #925026;
   --color-warn-wash: #eee1cc;
 
@@ -135,7 +136,7 @@ html[data-theme="night"] {
 
   /* 主按钮：白天=墨块，入夜=金渐变 */
   .btn-primary {
-    background: var(--color-ink);
+    background: var(--color-btn);
     color: var(--color-paper);
     font-family: var(--font-serif);
     font-weight: 600;
@@ -168,9 +169,9 @@ html[data-theme="night"] {
   }
   .chip:hover { color: var(--color-ink); border-color: var(--color-accent-soft); }
   .chip[data-active="true"] {
-    background: var(--color-ink);
-    border-color: var(--color-ink);
-    color: var(--color-surface);
+    background: var(--color-btn);
+    border-color: var(--color-btn);
+    color: var(--color-paper);
   }
   html[data-theme="night"] .chip[data-active="true"] {
     background: var(--color-accent);
