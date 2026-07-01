@@ -91,12 +91,14 @@ export function occasionFit(p: Perfume, ctx: Context): number {
   return Math.max(0.05, Math.min(1, s));
 }
 
-// 质量先验：贝叶斯收缩后收窄为温和微调（0.85~1.1），只作轻微倾向、不主导场景
+// 质量先验：贝叶斯收缩后压成 ±4% 的温和微调（0.96~1.04，中心 1.0）。
+// 关键：同一用户库内，"今天喷哪瓶"该由场景/季节/天气决定，社区评分只作轻微 tiebreak，
+// 不能让某瓶高分香跨场景通吃（否则又回到"永远推荐大地"）。未评分记 1.0，不惩罚。
 export function qualityPrior(p: Perfume): number {
-  if (p.rating == null) return 0.92;
+  if (p.rating == null) return 1;
   const C = 30, M = 3.6;
   const shrunk = (p.rating * p.people + M * C) / (p.people + C);
-  return Math.max(0.85, Math.min(1.1, 0.9 + (shrunk - 3.8) * 0.16));
+  return Math.max(0.96, Math.min(1.04, 1 + (shrunk - 4.0) * 0.08));
 }
 
 export interface ScoreParts {
@@ -137,8 +139,10 @@ export function score(
   const W = weatherMultiplier(p, ctx.feel);
   const Q = qualityPrior(p);
 
-  // 线性组合（权重显式、归一到 1、可单测、可向用户解释）；个人偏好不占加性权重，改由下方 biasMul 乘性承担
-  const linear = 0.41 * sSeason + 0.19 * sDay + 0.4 * sOcc;
+  // 线性组合（权重显式、归一到 1、可单测、可向用户解释）；occasion 略高于 season——
+  // "今天去哪儿"比"现在什么季"更该决定喷哪瓶（急性温度已由乘性 W 兜底），让场景赢下真正的平局。
+  // 个人偏好不占加性权重，改由下方 biasMul 乘性承担。
+  const linear = 0.38 * sSeason + 0.19 * sDay + 0.43 * sOcc;
   const biasMul = 1 + (bias?.likeScore ?? 0) * 0.25;
   const total = linear * W * Q * biasMul * avoidPenalty(p, ctx.avoid);
   return { total, season: sSeason, daypart: sDay, occasion: sOcc, weather: W, quality: Q };
