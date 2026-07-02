@@ -135,7 +135,7 @@ score =  ( 0.38·季节匹配 + 0.19·时段匹配 + 0.43·场合贴合 )   ← 
 | 决策 | **确定性规则引擎**（纯 TS） | 前端本地打分，可解释可单测 |
 | 检索 | **MiniSearch 7**（自定义中英文分词） | 搜名 / 品牌 / 香调秒加 |
 | 状态 | **Zustand 5** + localStorage | 香柜与反馈持久化，接口已抽象可换 Supabase |
-| 语义 | **DeepSeek API** | 场景解析（`json_object`）+ 自然语言解读 |
+| 语义 | **DeepSeek**（`deepseek-v4-flash`） | 场景解析（`json_object` + zod 校验）+ 自然语言解读 |
 | 天气 | **和风天气 QWeather** | 服务端调用 + 30 分钟网格缓存 |
 | 校验 / 部署 | **zod** · **Vercel** | 入参校验、GitHub 自动部署 |
 
@@ -163,6 +163,7 @@ QWEATHER_HOST=你的和风天气-API-HOST
 QWEATHER_KEY=你的和风天气-KEY
 DEEPSEEK_API_KEY=你的-DeepSeek-key
 DEEPSEEK_BASE_URL=https://api.deepseek.com
+DEEPSEEK_MODEL=deepseek-v4-flash        # 可选，默认即 deepseek-v4-flash
 ENV
 
 npm run dev            # http://localhost:3000
